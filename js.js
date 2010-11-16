@@ -2,7 +2,7 @@
   Pung - A HTML5 pang rewrite http://pung.tk/
   
   Copyright (C) 2010 Mounier Florian aka paradoxxxzero
-                     Dunklau Ronan
+  Copyright (C) 2010 Dunklau Ronan
   
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU Affero General Public License as
@@ -18,7 +18,7 @@
   along with this program.  If not, see http://www.gnu.org/licenses/.
 */
 
-var _canvas, _c, _scr, _balls, _bullets, _player, _step, _clipMargin, _time, _initTime, _keyboard;
+var _canvas, _c, _scr, _balls, _bullets, _player, _step, _clipMargin, _time, _initTime, _keyboard, _colors;
 
 
 function d(p, q) {
@@ -37,75 +37,86 @@ function resize() {
 }
 
 function clip() {
-    $.each(_balls, function(i, _ball) {
-	_c.clearRect(_ball.x - _ball.r - _clipMargin, _ball.y - _ball.r - _clipMargin,		2 * (_ball.r + _clipMargin), 2 * (_ball.r + _clipMargin));
+    $.each(_balls, function(i, ball) {
+	_c.clearRect(ball.x - ball.r - _clipMargin, ball.y - ball.r - _clipMargin,	
+		     2 * (ball.r + _clipMargin), 2 * (ball.r + _clipMargin));
     });
-    $.each(_bullets, function(i, _bullet) {
-	_c.clearRect(_bullet.x - 1, _bullet.y, 2, 10);
+    $.each(_bullets, function(i, bullet) {
+	_c.clearRect(bullet.x - 1, bullet.y, 2, 10);
     });
-     _c.clearRect(0, _scr.h - _player.h, _scr.w, _player.h);
+    _c.clearRect(_player.x - _player.w / 2, _scr.h - _player.h, _player.w, _player.h);
 }
 
 function moveBalls(dTime) {
-    $.each(_balls, function(i, _ball) {
-	_ball.v.x += (_ball.a.x * dTime) / 1000;
-	_ball.v.y += (_ball.a.y * dTime) / 1000;
+    $.each(_balls, function(i, ball) {
+	ball.v.x += (ball.a.x * dTime) / 1000;
+	ball.v.y += (ball.a.y * dTime) / 1000;
 	next = {
-	    x: _ball.x + (_ball.v.x * dTime) / 1000,
-	    y: _ball.y + (_ball.v.y * dTime) / 1000
+	    x: ball.x + (ball.v.x * dTime) / 1000,
+	    y: ball.y + (ball.v.y * dTime) / 1000
 	};
-	if(next.x + _ball.r > _scr.w) {
-	    _ball.x = 2 * _scr.w - 2 * _ball.r - next.x;
-	    _ball.v.x *= -1;
-	} else if(next.x - _ball.r < 0) {
-	    _ball.x = 2 * _ball.r - next.x;
-	    _ball.v.x *= -1;
+	if(next.x + ball.r > _scr.w) {
+	    ball.x = 2 * _scr.w - 2 * ball.r - next.x;
+	    ball.v.x *= -1;
+	} else if(next.x - ball.r < 0) {
+	    ball.x = 2 * ball.r - next.x;
+	    ball.v.x *= -1;
 	} else {
-	    _ball.x = next.x;
+	    ball.x = next.x;
 	}
-	if(next.y + _ball.r > _scr.h) {
-	    _ball.y = 2 * _scr.h - 2 * _ball.r - next.y;
-	    _ball.v.y *= -1;
+	if(next.y + ball.r > _scr.h) {
+	    ball.y = 2 * _scr.h - 2 * ball.r - next.y;
+	    ball.v.y *= -1;
 	} else {
-	    _ball.y = next.y;
+	    ball.y = next.y;
 	}
     });
 }
 
 function moveBullets() {
-    $.each(_bullets, function(i, _bullet) {
-	_bullet.y -= 5;
+    var bulletsToRemove = new Array();
+    $.each(_bullets, function(i, bullet) {
+	bullet.y -= 5;
+	if(bullet.y < 0)
+	    bulletsToRemove.push({
+		i: i,
+		bullet: bullet
+	    });
+    });
+    $.each(bulletsToRemove, function(i, bulletToRemove) {
+	_bullets.pop(bulletToRemove.i);
+	delete bulletToRemove.bullet;
     });
 }
 
 function movePlayer() {
     if(_keyboard.right) {
-	if(_player.x + 2 < _scr.w)
-	    _player.x += 2;
+	if(_player.x + _player.w / 2 + _player.step < _scr.w)
+	    _player.x += _player.step;
     } else if(_keyboard.left) {
-	if(_player.x - 2 > 0)
-	    _player.x -= 2;
+	if(_player.x - _player.w / 2 - _player.step > 0)
+	    _player.x -= _player.step;
     }
 }
 
 function renderBullets() {
-    $.each(_bullets, function(i, _bullet) {
-	_c.fillStyle = _bullet.color;
-	_c.fillRect(_bullet.x - 1, _bullet.y, 2, 10);
+    $.each(_bullets, function(i, bullet) {
+	_c.fillStyle = _colors.bullet;
+	_c.fillRect(bullet.x - 1, bullet.y, 2, 10);
     });
 }
 
 function renderBalls() {
-    $.each(_balls, function(i, _ball) {
+    $.each(_balls, function(i, ball) {
 	_c.beginPath();
-	_c.fillStyle = _ball.color;
-	_c.arc(_ball.x, _ball.y, _ball.r, 0, 2 * Math.PI, false);
+	_c.fillStyle = _colors.ball;
+	_c.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI, false);
 	_c.fill();
     });
 }
 
 function renderPlayer() {
-    _c.fillStyle = _player.color;
+    _c.fillStyle = _colors.player;
     _c.fillRect(_player.x - _player.w / 2, _scr.h - _player.h, _player.w, _player.h);
 }
 
@@ -115,22 +126,66 @@ function ballBulletIntersect(ball, bullet){
             && bullet.y > ball.y - r && bullet .y < ball.y+r);
 }
 
+function handleCollisions() {
+    var ballsToRemove = new Array();
+    var bulletsToRemove = new Array();
+    var ballsToAdd = new Array();
+    $.each(_balls, function(i, ball) {
+        $.each(_bullets, function(j, bullet) {
+            if (ballBulletIntersect(ball, bullet)){		
+		ballsToAdd.push({
+		    x: ball.x,
+		    y: ball.y,
+		    r: ball.r / 2,
+		    v: {
+			x: ball.v.x,
+			y: 0},
+		    a: {
+			x: 0,
+			y: 980},
+		});
+		ballsToAdd.push({
+		    x: ball.x,
+		    y: ball.y,
+		    r: ball.r / 2,
+		    v: {
+			x: -ball.v.x,
+			y: 0},
+		    a: {
+			x: 0,
+			y: 980},
+		});
+		ballsToRemove.push({
+		    i: i,
+		    ball: ball,
+		});
+		bulletsToRemove.push({
+		    i: j,
+		    bullet: bullet,
+		});
+	    }
+	});
+    });
+    $.each(ballsToRemove, function(i, ballToRemove) {
+	_balls.pop(ballToRemove.i);
+	delete ballToRemove.ball;
+    });
+    $.each(bulletsToRemove, function(i, bulletToRemove) {
+	_bullets.pop(bulletToRemove.i);
+	delete bulletToRemove.bullet;
+    });
+    $.each(ballsToAdd, function(i, ballToAdd) {
+	_balls.push(ballToAdd);
+    });
+}
+
 function draw() {
     clip();
     var dTime = new Date().getTime() - _time;
     moveBalls(dTime);
-    movePlayer();
     moveBullets();
-    $.each(_balls, function(i, _ball) {
-        $.each(_bullets, function(j, _bullet) {
-            if (ballBulletIntersect(_ball, _bullet)){
-               _balls.pop(i);
-               delete _ball;
-               _bullets.pop(j);
-               delete _bullet;
-            }
-        });
-    });
+    movePlayer();
+    handleCollisions();
     renderBalls();
     renderBullets();
     renderPlayer();
@@ -147,10 +202,10 @@ function kdown(event) {
 	_bullets.push({
 	    x: _player.x,
 	    y: _scr.h - _player.h,
-	    color: "#b6e354",
 	});
     }
 }
+
 function kup(event) {
     if(event.keyCode == 39) {
 	_keyboard.right = false;
@@ -158,7 +213,6 @@ function kup(event) {
 	_keyboard.left = false;
     }
 }
-
 
 $(window).load(function() {
     $(window).resize(resize);
@@ -185,18 +239,26 @@ function init() {
 	a: {
 	    x: 0,
 	    y: 980}, // pix.s^-
-	color: "#8cedff",
     });
     _player = {
 	x: _scr.w / 2,
 	w: 20,
 	h: 40,
-	color: "#9e6ffe",
+	step: 1
     };
     _keyboard = {
 	left: false,
 	right: false,
     }
     _initTime = _time = new Date().getTime();
+    colorsFromCss();
     setTimeout(draw, _step);
+}
+
+function colorsFromCss() {
+    _colors = {
+	ball: $(".ball").css("color"),
+	bullet: $(".bullet").css("color"),
+	player: $(".player").css("color"),
+    };
 }
