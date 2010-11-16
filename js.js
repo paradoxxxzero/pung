@@ -2,6 +2,7 @@
   Pung - A HTML5 pang rewrite http://pung.tk/
   
   Copyright (C) 2010 Mounier Florian aka paradoxxxzero
+                     Dunklau Ronan
   
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU Affero General Public License as
@@ -108,12 +109,28 @@ function renderPlayer() {
     _c.fillRect(_player.x - _player.w / 2, _scr.h - _player.h, _player.w, _player.h);
 }
 
+function ballBulletIntersect(ball, bullet){
+    var r = ball.r
+    return (bullet.x > ball.x -r && bullet.x < ball.x + r
+            && bullet.y > ball.y - r && bullet .y < ball.y+r);
+}
+
 function draw() {
     clip();
     var dTime = new Date().getTime() - _time;
     moveBalls(dTime);
     movePlayer();
     moveBullets();
+    $.each(_balls, function(i, _ball) {
+        $.each(_bullets, function(j, _bullet) {
+            if (ballBulletIntersect(_ball, _bullet)){
+               _balls.pop(i);
+               delete _ball;
+               _bullets.pop(j);
+               delete _bullet;
+            }
+        });
+    });
     renderBalls();
     renderBullets();
     renderPlayer();
