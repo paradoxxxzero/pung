@@ -5,8 +5,24 @@ body {
    background-color: #1b1d1e;
 }
 
-.ball {
-   color: #82b414;
+.ball-0 {
+   color: rgba(255, 89, 149, 0.8);
+}
+
+.ball-1 {
+   color: rgba(253, 151, 31, 0.8);
+}
+
+.ball-2 {
+   color: rgba(254, 237, 108, 0.8);
+}
+
+.ball-3 {
+   color: rgba(140, 237, 255, 0.8);
+}
+
+.ball-4 {
+   color: rgba(182, 227, 84, 0.8);
 }
 
 .bullet {

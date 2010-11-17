@@ -18,7 +18,7 @@
   along with this program.  If not, see http://www.gnu.org/licenses/.
 */
 
-var _canvas, _c, _scr, _balls, _bullets, _player, _step, _clipMargin, _time, _initTime, _keyboard, _colors;
+var _canvas, _c, _scr, _balls, _bullets, _grapnels, _player, _step, _clipMargin, _time, _initTime, _keyboard, _colors, _maxSize;
 
 
 function d(p, q) {
@@ -76,7 +76,7 @@ function moveBalls(dTime) {
 function moveBullets() {
     var bulletsToRemove = new Array();
     $.each(_bullets, function(i, bullet) {
-	bullet.y -= 5;
+	bullet.y -= 1;
 	if(bullet.y < 0)
 	    bulletsToRemove.push({
 		i: i,
@@ -84,8 +84,7 @@ function moveBullets() {
 	    });
     });
     $.each(bulletsToRemove, function(i, bulletToRemove) {
-	_bullets.pop(bulletToRemove.i);
-	delete bulletToRemove.bullet;
+	_bullets.splice(bulletToRemove.i, 1);
     });
 }
 
@@ -109,7 +108,7 @@ function renderBullets() {
 function renderBalls() {
     $.each(_balls, function(i, ball) {
 	_c.beginPath();
-	_c.fillStyle = _colors.ball;
+	_c.fillStyle = _colors.balls[ball.p];
 	_c.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI, false);
 	_c.fill();
     });
@@ -132,29 +131,33 @@ function handleCollisions() {
     var ballsToAdd = new Array();
     $.each(_balls, function(i, ball) {
         $.each(_bullets, function(j, bullet) {
-            if (ballBulletIntersect(ball, bullet)){		
-		ballsToAdd.push({
-		    x: ball.x,
-		    y: ball.y,
-		    r: ball.r / 2,
-		    v: {
-			x: ball.v.x,
-			y: 0},
-		    a: {
-			x: 0,
-			y: 980},
-		});
-		ballsToAdd.push({
-		    x: ball.x,
-		    y: ball.y,
-		    r: ball.r / 2,
-		    v: {
-			x: -ball.v.x,
-			y: 0},
-		    a: {
-			x: 0,
-			y: 980},
-		});
+            if (ballBulletIntersect(ball, bullet)){
+		if(ball.p > 0) {
+		    ballsToAdd.push({
+			x: ball.x,
+			y: ball.y,
+			r: ball.r / 2,
+			p: ball.p - 1,
+			v: {
+			    x: ball.v.x,
+			    y: 0},
+			a: {
+			    x: 0,
+			    y: 980},
+		    });
+		    ballsToAdd.push({
+			x: ball.x,
+			y: ball.y,
+			r: ball.r / 2,
+			p: ball.p - 1,
+			v: {
+			    x: -ball.v.x,
+			    y: 0},
+			a: {
+			    x: 0,
+			    y: 980},
+		    });
+		}
 		ballsToRemove.push({
 		    i: i,
 		    ball: ball,
@@ -167,12 +170,10 @@ function handleCollisions() {
 	});
     });
     $.each(ballsToRemove, function(i, ballToRemove) {
-	_balls.pop(ballToRemove.i);
-	delete ballToRemove.ball;
+	_balls.splice(ballToRemove.i, 1);
     });
     $.each(bulletsToRemove, function(i, bulletToRemove) {
-	_bullets.pop(bulletToRemove.i);
-	delete bulletToRemove.bullet;
+	_bullets.splice(bulletToRemove.i, 1);
     });
     $.each(ballsToAdd, function(i, ballToAdd) {
 	_balls.push(ballToAdd);
@@ -222,8 +223,9 @@ $(window).load(function() {
 });
 
 function init() {
-    _step = 1;
+    _step = 20;
     _clipMargin = 5;
+    _maxSize = 4;
     _canvas = $('#canvas')[0];
     _c = _canvas.getContext('2d');
     size();
@@ -233,6 +235,7 @@ function init() {
 	x: _scr.w / 2,
 	y: _scr.h / 8,
 	r: 100,
+	p: _maxSize,
 	v: {
 	    x: 100,   // pix.s^-1
 	    y: 0},
@@ -244,6 +247,7 @@ function init() {
 	x: _scr.w / 2,
 	w: 20,
 	h: 40,
+	shots: 1,
 	step: 1
     };
     _keyboard = {
@@ -257,8 +261,11 @@ function init() {
 
 function colorsFromCss() {
     _colors = {
-	ball: $(".ball").css("color"),
+	balls: new Array(),
 	bullet: $(".bullet").css("color"),
 	player: $(".player").css("color"),
     };
+    for (var p = 0 ; p <= _maxSize ; p++) {
+	_colors.balls[p] = $(".ball-" + p).css("color");
+    }
 }
