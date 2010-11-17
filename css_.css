@@ -1,0 +1,34 @@
+body {
+   padding: 0;
+   margin: 0;
+   overflow: hidden;
+   background-color: #1b1d1e;
+}
+
+.ball-0 {
+   color: rgba(50, 50, 50, 0.5);
+}
+
+.ball-1 {
+   color: rgba(45, 45, 45, 0.5);
+}
+
+.ball-2 {
+   color: rgba(40, 40, 40, 0.5);
+}
+
+.ball-3 {
+   color: rgba(35, 35, 35, 0.5);
+}
+
+.ball-4 {
+   color: rgba(30, 30, 30, 0.5);
+}
+
+.bullet {
+   color: #333333;
+}
+
+.player {
+   color: #222222;
+}
