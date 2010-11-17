@@ -42,9 +42,12 @@ function clip() {
 		     2 * (ball.r + _clipMargin), 2 * (ball.r + _clipMargin));
     });
     $.each(_bullets, function(i, bullet) {
-	_c.clearRect(bullet.x - 1, bullet.y, 2, 10);
+	_c.clearRect(bullet.x - bullet.w / 2 - _clipMargin, bullet.y - _clipMargin, bullet.w + 2 * _clipMargin, bullet.h + 2 * _clipMargin);
     });
-    _c.clearRect(_player.x - _player.w / 2, _scr.h - _player.h, _player.w, _player.h);
+    $.each(_grapnels, function(i, grapnel) {
+	_c.clearRect(grapnel.x - grapnel.w / 2 - _clipMargin, grapnel.y - _clipMargin, grapnel.w + 2 * _clipMargin, _scr.h - grapnel.y + 2 * _clipMargin);
+    });
+    _c.clearRect(_player.x - _player.w / 2 - _clipMargin, _scr.h - _player.h - _clipMargin, _player.w +  2 * _clipMargin, _player.h + 2 * _clipMargin);
 }
 
 function moveBalls(dTime) {
@@ -73,35 +76,64 @@ function moveBalls(dTime) {
     });
 }
 
-function moveBullets() {
+function moveBullets(dTime) {
     var bulletsToRemove = new Array();
     $.each(_bullets, function(i, bullet) {
-	bullet.y -= 1;
-	if(bullet.y < 0)
+	bullet.y += (bullet.vy * dTime) / 1000
+	if(bullet.y < 0) {
 	    bulletsToRemove.push({
 		i: i,
 		bullet: bullet
 	    });
+	}
     });
     $.each(bulletsToRemove, function(i, bulletToRemove) {
 	_bullets.splice(bulletToRemove.i, 1);
     });
 }
 
-function movePlayer() {
+function moveGrapnels(dTime) {
+    var grapnelsToRemove = new Array();
+    $.each(_grapnels, function(i, grapnel) {
+	grapnel.y += (grapnel.vy * dTime) / 1000
+	if(grapnel.y < 0) {
+	    _player.shots++;
+	    grapnelsToRemove.push({
+		i: i,
+		grapnel: grapnel
+	    });
+	}
+    });
+    $.each(grapnelsToRemove, function(i, grapnelToRemove) {
+	_grapnels.splice(grapnelToRemove.i, 1);
+    });
+}
+
+function movePlayer(dTime) {
     if(_keyboard.right) {
-	if(_player.x + _player.w / 2 + _player.step < _scr.w)
-	    _player.x += _player.step;
+	var next = _player.x + (_player.vx * dTime) / 1000;
+	if(next + _player.w / 2 < _scr.w) {
+	    _player.x = next;
+	}
     } else if(_keyboard.left) {
-	if(_player.x - _player.w / 2 - _player.step > 0)
-	    _player.x -= _player.step;
+	var next = _player.x - (_player.vx * dTime) / 1000;
+	if(next - _player.w / 2 > 0) {
+	    _player.x = next;
+	}
     }
 }
 
 function renderBullets() {
     $.each(_bullets, function(i, bullet) {
 	_c.fillStyle = _colors.bullet;
-	_c.fillRect(bullet.x - 1, bullet.y, 2, 10);
+	_c.fillRect(bullet.x - bullet.w / 2, bullet.y, bullet.w, bullet.h);
+    });
+}
+
+function renderGrapnels() {
+    $.each(_grapnels, function(i, grapnel) {
+	_c.fillStyle = _colors.grapnel;
+	_c.fillRect(grapnel.x - grapnel.w / 2, grapnel.y, grapnel.w, _scr.h - grapnel.y);
     });
 }
 
@@ -119,19 +151,13 @@ function renderPlayer() {
     _c.fillRect(_player.x - _player.w / 2, _scr.h - _player.h, _player.w, _player.h);
 }
 
-function ballBulletIntersect(ball, bullet){
-    var r = ball.r
-    return (bullet.x > ball.x -r && bullet.x < ball.x + r
-            && bullet.y > ball.y - r && bullet .y < ball.y+r);
-}
-
-function handleCollisions() {
+function handleBulletCollisions() {
     var ballsToRemove = new Array();
     var bulletsToRemove = new Array();
     var ballsToAdd = new Array();
     $.each(_balls, function(i, ball) {
         $.each(_bullets, function(j, bullet) {
-            if (ballBulletIntersect(ball, bullet)){
+            if (d(ball, bullet) < ball.r) {
 		if(ball.p > 0) {
 		    ballsToAdd.push({
 			x: ball.x,
@@ -180,15 +206,74 @@ function handleCollisions() {
     });
 }
 
+function handleGrapnelCollisions() {
+    var ballsToRemove = new Array();
+    var grapnelsToRemove = new Array();
+    var ballsToAdd = new Array();
+    $.each(_balls, function(i, ball) {
+        $.each(_grapnels, function(j, grapnel) {
+            if (d(ball, grapnel) < ball.r || (ball.x - ball.r < grapnel.x && ball.x + ball.r > grapnel.x && ball.y > grapnel.y)) {
+		_player.shots++;
+		if(ball.p > 0) {
+		    ballsToAdd.push({
+			x: ball.x,
+			y: ball.y,
+			r: ball.r / 2,
+			p: ball.p - 1,
+			v: {
+			    x: ball.v.x,
+			    y: 0},
+			a: {
+			    x: 0,
+			    y: 980},
+		    });
+		    ballsToAdd.push({
+			x: ball.x,
+			y: ball.y,
+			r: ball.r / 2,
+			p: ball.p - 1,
+			v: {
+			    x: -ball.v.x,
+			    y: 0},
+			a: {
+			    x: 0,
+			    y: 980},
+		    });
+		}
+		ballsToRemove.push({
+		    i: i,
+		    ball: ball,
+		});
+		grapnelsToRemove.push({
+		    i: j,
+		    grapnel: grapnel,
+		});
+	    }
+	});
+    });
+    $.each(ballsToRemove, function(i, ballToRemove) {
+	_balls.splice(ballToRemove.i, 1);
+    });
+    $.each(grapnelsToRemove, function(i, grapnelToRemove) {
+	_grapnels.splice(grapnelToRemove.i, 1);
+    });
+    $.each(ballsToAdd, function(i, ballToAdd) {
+	_balls.push(ballToAdd);
+    });
+}
+
 function draw() {
     clip();
     var dTime = new Date().getTime() - _time;
     moveBalls(dTime);
-    moveBullets();
-    movePlayer();
-    handleCollisions();
+    moveBullets(dTime);
+    moveGrapnels(dTime);
+    movePlayer(dTime);
+    handleBulletCollisions();
+    handleGrapnelCollisions();
     renderBalls();
     renderBullets();
+    renderGrapnels();
     renderPlayer();
     _time = new Date().getTime();
     setTimeout(draw, _step);
@@ -199,11 +284,24 @@ function kdown(event) {
 	_keyboard.right = true;
     } else if(event.keyCode == 37) {
 	_keyboard.left = true;
-    } else if(event.keyCode == 32) {
+    } else if(event.keyCode == 17) {
 	_bullets.push({
 	    x: _player.x,
 	    y: _scr.h - _player.h,
+	    w: 2,
+	    h: 10,
+	    vy: -400
 	});
+    } else if (event.keyCode == 32) {
+	if(_player.shots > 0) {
+	    _player.shots--;
+	    _grapnels.push({
+		x: _player.x,
+		y: _scr.h,
+		w: 2,
+		vy: -200
+	    });
+	}
     }
 }
 
@@ -224,11 +322,12 @@ $(window).load(function() {
 
 function init() {
     _step = 20;
-    _clipMargin = 5;
+    _clipMargin = 2;
     _maxSize = 4;
     _canvas = $('#canvas')[0];
     _c = _canvas.getContext('2d');
     size();
+    _grapnels = new Array();
     _bullets = new Array();
     _balls = new Array();
     _balls.push({
@@ -247,8 +346,8 @@ function init() {
 	x: _scr.w / 2,
 	w: 20,
 	h: 40,
-	shots: 1,
-	step: 1
+	shots: 2,
+	vx: 100
     };
     _keyboard = {
 	left: false,
@@ -263,6 +362,7 @@ function colorsFromCss() {
     _colors = {
 	balls: new Array(),
 	bullet: $(".bullet").css("color"),
+	grapnel: $(".bullet").css("color"),
 	player: $(".player").css("color"),
     };
     for (var p = 0 ; p <= _maxSize ; p++) {
