@@ -5,6 +5,10 @@ body {
    background-color: #1b1d1e;
 }
 
+.lost {
+  background-color: #700 !important;
+}
+
 .ball-0 {
    color: rgba(255, 89, 149, 0.8);
 }
@@ -26,6 +30,10 @@ body {
 }
 
 .bullet {
+   color: #ff5995;
+}
+
+.grapnel {
    color: #ff5995;
 }
 

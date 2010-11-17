@@ -18,7 +18,7 @@
   along with this program.  If not, see http://www.gnu.org/licenses/.
 */
 
-var _canvas, _c, _scr, _balls, _bullets, _grapnels, _player, _step, _clipMargin, _time, _initTime, _keyboard, _colors, _maxSize;
+var _canvas, _c, _scr, _balls, _bullets, _grapnels, _player, _step, _clipMargin, _time, _initTime, _keyboard, _colors, _maxSize, _urlParams, _frames, _heights;
 
 
 function d(p, q) {
@@ -37,17 +37,24 @@ function resize() {
 }
 
 function clip() {
-    $.each(_balls, function(i, ball) {
-	_c.clearRect(ball.x - ball.r - _clipMargin, ball.y - ball.r - _clipMargin,	
-		     2 * (ball.r + _clipMargin), 2 * (ball.r + _clipMargin));
-    });
-    $.each(_bullets, function(i, bullet) {
-	_c.clearRect(bullet.x - bullet.w / 2 - _clipMargin, bullet.y - _clipMargin, bullet.w + 2 * _clipMargin, bullet.h + 2 * _clipMargin);
-    });
-    $.each(_grapnels, function(i, grapnel) {
-	_c.clearRect(grapnel.x - grapnel.w / 2 - _clipMargin, grapnel.y - _clipMargin, grapnel.w + 2 * _clipMargin, _scr.h - grapnel.y + 2 * _clipMargin);
-    });
-    _c.clearRect(_player.x - _player.w / 2 - _clipMargin, _scr.h - _player.h - _clipMargin, _player.w +  2 * _clipMargin, _player.h + 2 * _clipMargin);
+    _c.save();
+    if(_urlParams.blur) {
+	_c.fillStyle = "rgba(0, 0, 0, 0.05)";
+	_c.fillRect(0, 0, _scr.w, _scr.h);
+    } else {
+	$.each(_balls, function(i, ball) {
+	    _c.clearRect(ball.x - ball.r - _clipMargin, ball.y - ball.r - _clipMargin,	
+			 2 * (ball.r + _clipMargin), 2 * (ball.r + _clipMargin));
+	});
+	$.each(_bullets, function(i, bullet) {
+	    _c.clearRect(bullet.x - bullet.w / 2 - _clipMargin, bullet.y - _clipMargin, bullet.w + 2 * _clipMargin, bullet.h + 2 * _clipMargin);
+	});
+	$.each(_grapnels, function(i, grapnel) {
+	    _c.clearRect(grapnel.x - grapnel.w / 2 - _clipMargin, grapnel.y - _clipMargin, grapnel.w + 2 * _clipMargin, _scr.h - grapnel.y + 2 * _clipMargin);
+	});
+	_c.clearRect(_player.x - _player.w / 2 - _clipMargin, _scr.h - _player.h - _clipMargin, _player.w +  2 * _clipMargin, _player.h + 2 * _clipMargin);
+    }
+    _c.restore();
 }
 
 function moveBalls(dTime) {
@@ -124,31 +131,47 @@ function movePlayer(dTime) {
 }
 
 function renderBullets() {
+    _c.save();
     $.each(_bullets, function(i, bullet) {
+	_c.shadowBlur = 5;
+	_c.shadowColor = _colors.bullet;
 	_c.fillStyle = _colors.bullet;
 	_c.fillRect(bullet.x - bullet.w / 2, bullet.y, bullet.w, bullet.h);
     });
+    _c.restore();
 }
 
 function renderGrapnels() {
+    _c.save();
     $.each(_grapnels, function(i, grapnel) {
+	_c.shadowBlur = 5;
+	_c.shadowColor = _colors.grapnel;
 	_c.fillStyle = _colors.grapnel;
 	_c.fillRect(grapnel.x - grapnel.w / 2, grapnel.y, grapnel.w, _scr.h - grapnel.y);
     });
+    _c.restore();
 }
 
 function renderBalls() {
+    _c.save();
     $.each(_balls, function(i, ball) {
-	_c.beginPath();
+	_c.beginPath();	 
+ 	_c.shadowBlur = 10;
+	_c.shadowColor = _colors.balls[ball.p];
 	_c.fillStyle = _colors.balls[ball.p];
 	_c.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI, false);
 	_c.fill();
     });
+    _c.restore();
 }
 
 function renderPlayer() {
+    _c.save();
+    _c.shadowBlur = 5;
+    _c.shadowColor = _colors.player;
     _c.fillStyle = _colors.player;
     _c.fillRect(_player.x - _player.w / 2, _scr.h - _player.h, _player.w, _player.h);
+    _c.restore();
 }
 
 function handleBulletCollisions() {
@@ -161,7 +184,7 @@ function handleBulletCollisions() {
 		if(ball.p > 0) {
 		    ballsToAdd.push({
 			x: ball.x,
-			y: ball.y,
+			y: _scr.h * _heights[ball.p - 1],
 			r: ball.r / 2,
 			p: ball.p - 1,
 			v: {
@@ -173,7 +196,7 @@ function handleBulletCollisions() {
 		    });
 		    ballsToAdd.push({
 			x: ball.x,
-			y: ball.y,
+			y: _scr.h * _heights[ball.p - 1],
 			r: ball.r / 2,
 			p: ball.p - 1,
 			v: {
@@ -217,7 +240,7 @@ function handleGrapnelCollisions() {
 		if(ball.p > 0) {
 		    ballsToAdd.push({
 			x: ball.x,
-			y: ball.y,
+			y: _scr.h * _heights[ball.p - 1],
 			r: ball.r / 2,
 			p: ball.p - 1,
 			v: {
@@ -229,7 +252,7 @@ function handleGrapnelCollisions() {
 		    });
 		    ballsToAdd.push({
 			x: ball.x,
-			y: ball.y,
+			y: _scr.h * _heights[ball.p - 1],
 			r: ball.r / 2,
 			p: ball.p - 1,
 			v: {
@@ -262,7 +285,18 @@ function handleGrapnelCollisions() {
     });
 }
 
+function handlePlayerCollisions() {
+    $.each(_balls, function(i, ball) {
+	// Approx collision by only computing the two top corners of the player :
+	if(d(ball, { x: _player.x - _player.w / 2, y: _scr.h - _player.h}) < ball.r ||
+	   d(ball, { x: _player.x + _player.w / 2, y: _scr.h - _player.h}) < ball.r) {
+	    $("body").addClass("lost");
+	}
+    });
+}
+
 function draw() {
+    _frames++;
     clip();
     var dTime = new Date().getTime() - _time;
     moveBalls(dTime);
@@ -271,6 +305,7 @@ function draw() {
     movePlayer(dTime);
     handleBulletCollisions();
     handleGrapnelCollisions();
+    handlePlayerCollisions();
     renderBalls();
     renderBullets();
     renderGrapnels();
@@ -286,11 +321,18 @@ function kdown(event) {
 	_keyboard.left = true;
     } else if(event.keyCode == 17) {
 	_bullets.push({
-	    x: _player.x,
+	    x: _player.x - _player.w / 2,
 	    y: _scr.h - _player.h,
 	    w: 2,
 	    h: 10,
-	    vy: -400
+	    vy: -1500
+	});
+	_bullets.push({
+	    x: _player.x + _player.w / 2,
+	    y: _scr.h - _player.h,
+	    w: 2,
+	    h: 10,
+	    vy: -1500
 	});
     } else if (event.keyCode == 32) {
 	if(_player.shots > 0) {
@@ -299,7 +341,7 @@ function kdown(event) {
 		x: _player.x,
 		y: _scr.h,
 		w: 2,
-		vy: -200
+		vy: -1000
 	    });
 	}
     }
@@ -321,9 +363,13 @@ $(window).load(function() {
 });
 
 function init() {
-    _step = 20;
-    _clipMargin = 2;
+    _frames = 0;
+    _step = 5;
+    _clipMargin = 5;
     _maxSize = 4;
+    _urlParams = $.parseQuery();
+    _heights = [.75, .625, .5, .25, .125];
+
     _canvas = $('#canvas')[0];
     _c = _canvas.getContext('2d');
     size();
@@ -332,7 +378,7 @@ function init() {
     _balls = new Array();
     _balls.push({
 	x: _scr.w / 2,
-	y: _scr.h / 8,
+	y: _scr.h * _heights[_maxSize],
 	r: 100,
 	p: _maxSize,
 	v: {
@@ -347,7 +393,7 @@ function init() {
 	w: 20,
 	h: 40,
 	shots: 2,
-	vx: 100
+	vx: 200
     };
     _keyboard = {
 	left: false,
@@ -356,13 +402,19 @@ function init() {
     _initTime = _time = new Date().getTime();
     colorsFromCss();
     setTimeout(draw, _step);
+    setInterval(displayFps, 1000);
+}
+
+function displayFps() {
+    document.title = _frames + " fps";
+    _frames = 0;
 }
 
 function colorsFromCss() {
     _colors = {
 	balls: new Array(),
 	bullet: $(".bullet").css("color"),
-	grapnel: $(".bullet").css("color"),
+	grapnel: $(".grapnel").css("color"),
 	player: $(".player").css("color"),
     };
     for (var p = 0 ; p <= _maxSize ; p++) {
