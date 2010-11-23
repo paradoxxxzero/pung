@@ -299,7 +299,7 @@ function handlePlayerCollisions() {
 function draw() {
     _frames++;
     clip();
-    var dTime = new Date().getTime() - _time;
+    var dTime = Math.min(new Date().getTime() - _time, 50);
     moveBalls(dTime);
     moveBullets(dTime);
     moveGrapnels(dTime);

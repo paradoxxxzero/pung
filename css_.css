@@ -10,23 +10,23 @@ body {
 }
 
 .ball-0 {
-   color: rgba(50, 50, 50, 0.5);
+   color: rgb(50, 50, 50);
 }
 
 .ball-1 {
-   color: rgba(45, 45, 45, 0.5);
+   color: rgb(45, 45, 45);
 }
 
 .ball-2 {
-   color: rgba(40, 40, 40, 0.5);
+   color: rgb(40, 40, 40);
 }
 
 .ball-3 {
-   color: rgba(35, 35, 35, 0.5);
+   color: rgb(35, 35, 35);
 }
 
 .ball-4 {
-   color: rgba(30, 30, 30, 0.5);
+   color: rgb(30, 30, 30);
 }
 
 .bullet {
