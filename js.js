@@ -38,6 +38,7 @@ function resize() {
 
 function clip() {
     _c.save();
+
     if(_urlParams.blur) {
 	_c.fillStyle = "rgba(0, 0, 0, 0.05)";
 	_c.fillRect(0, 0, _scr.w, _scr.h);
@@ -61,7 +62,7 @@ function moveBalls(dTime) {
     $.each(_balls, function(i, ball) {
 	ball.v.x += (ball.a.x * dTime) / 1000;
 	ball.v.y += (ball.a.y * dTime) / 1000;
-	next = {
+	var next = {
 	    x: ball.x + (ball.v.x * dTime) / 1000,
 	    y: ball.y + (ball.v.y * dTime) / 1000
 	};
@@ -86,7 +87,7 @@ function moveBalls(dTime) {
 function moveBullets(dTime) {
     var bulletsToRemove = new Array();
     $.each(_bullets, function(i, bullet) {
-	bullet.y += (bullet.vy * dTime) / 1000
+	bullet.y += (bullet.vy * dTime) / 1000;
 	if(bullet.y < 0) {
 	    bulletsToRemove.push({
 		i: i,
@@ -102,7 +103,7 @@ function moveBullets(dTime) {
 function moveGrapnels(dTime) {
     var grapnelsToRemove = new Array();
     $.each(_grapnels, function(i, grapnel) {
-	grapnel.y += (grapnel.vy * dTime) / 1000
+	grapnel.y += (grapnel.vy * dTime) / 1000;
 	if(grapnel.y < 0) {
 	    _player.shots++;
 	    grapnelsToRemove.push({
@@ -192,7 +193,7 @@ function handleBulletCollisions() {
 			    y: 0},
 			a: {
 			    x: 0,
-			    y: 980},
+			    y: 980}
 		    });
 		    ballsToAdd.push({
 			x: ball.x,
@@ -204,16 +205,16 @@ function handleBulletCollisions() {
 			    y: 0},
 			a: {
 			    x: 0,
-			    y: 980},
+			    y: 980}
 		    });
 		}
 		ballsToRemove.push({
 		    i: i,
-		    ball: ball,
+		    ball: ball
 		});
 		bulletsToRemove.push({
 		    i: j,
-		    bullet: bullet,
+		    bullet: bullet
 		});
 	    }
 	});
@@ -248,7 +249,7 @@ function handleGrapnelCollisions() {
 			    y: 0},
 			a: {
 			    x: 0,
-			    y: 980},
+			    y: 980}
 		    });
 		    ballsToAdd.push({
 			x: ball.x,
@@ -260,16 +261,16 @@ function handleGrapnelCollisions() {
 			    y: 0},
 			a: {
 			    x: 0,
-			    y: 980},
+			    y: 980}
 		    });
 		}
 		ballsToRemove.push({
 		    i: i,
-		    ball: ball,
+		    ball: ball
 		});
 		grapnelsToRemove.push({
 		    i: j,
-		    grapnel: grapnel,
+		    grapnel: grapnel
 		});
 	    }
 	});
@@ -354,8 +355,7 @@ function kup(event) {
 	_keyboard.left = false;
     }
 }
-
-$(window).load(function() {
+$(document).ready(function() {
     $(window).resize(resize);
     $(window).keydown(kdown);
     $(window).keyup(kup);
@@ -386,7 +386,7 @@ function init() {
 	    y: 0},
 	a: {
 	    x: 0,
-	    y: 980}, // pix.s^-
+	    y: 980} // pix.s^-
     });
     _player = {
 	x: _scr.w / 2,
@@ -397,8 +397,8 @@ function init() {
     };
     _keyboard = {
 	left: false,
-	right: false,
-    }
+	right: false
+    };
     _initTime = _time = new Date().getTime();
     colorsFromCss();
     setTimeout(draw, _step);
@@ -413,11 +413,11 @@ function displayFps() {
 function colorsFromCss() {
     _colors = {
 	balls: new Array(),
-	bullet: $(".bullet").css("color"),
-	grapnel: $(".grapnel").css("color"),
-	player: $(".player").css("color"),
+	bullet: $("div.bullet").css("color"),
+	grapnel: $("div.grapnel").css("color"),
+	player: $("div.player").css("color")
     };
     for (var p = 0 ; p <= _maxSize ; p++) {
-	_colors.balls[p] = $(".ball-" + p).css("color");
+	_colors.balls[p] = $("div.ball-" + p).css("color");
     }
 }
