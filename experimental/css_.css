@@ -1,0 +1,42 @@
+body {
+   padding: 0;
+   margin: 0;
+   overflow: hidden;
+   background-color: #1b1d1e;
+}
+
+.lost {
+  background-color: #222 !important;
+}
+
+.ball-0 {
+   color: rgb(50, 50, 50);
+}
+
+.ball-1 {
+   color: rgb(45, 45, 45);
+}
+
+.ball-2 {
+   color: rgb(40, 40, 40);
+}
+
+.ball-3 {
+   color: rgb(35, 35, 35);
+}
+
+.ball-4 {
+   color: rgb(30, 30, 30);
+}
+
+.bullet {
+   color: #333333;
+}
+
+.grapnel {
+   color: #444444;
+}
+
+.player {
+   color: #222222;
+}

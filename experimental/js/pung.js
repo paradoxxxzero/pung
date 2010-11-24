@@ -1,9 +1,9 @@
 /*
   Pung - A HTML5 pang rewrite http://pung.tk/
-  
+
   Copyright (C) 2010 Mounier Florian aka paradoxxxzero
   Copyright (C) 2010 Dunklau Ronan
-  
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU Affero General Public License as
   published by the Free Software Foundation, either version 3 of the
@@ -20,7 +20,7 @@
 
 /**
  * This class represents a pung game
- * 		
+ *
  * @constructor
  *
  */
@@ -48,6 +48,23 @@ Pung.prototype.rmBall = function(ball) {
 };
 
 /**
+ * This utility method creates a new ball with default values
+ * @param x The initial ball abscissa
+ * @param xspeed The initial ball horizontal speed
+ * @param life The initial ball life
+ */
+Pung.prototype.makeBall = function(x, xspeed, life) {
+    return new Ball(
+	new Location(
+	    x, _scr.h * _heights[life - 1],
+	    new Speed(
+		xspeed, 0,
+		new Acceleration(0, 980)
+	    )
+	), life);
+};
+
+/**
  * This method adds a player to the game
  * @param player The Player to add
  */
@@ -64,21 +81,35 @@ Pung.prototype.rmPlayer = function(player) {
 };
 
 /**
- * This method animates the game
+ * This utility method creates a new player with default values
+ * @param x The initial player abscissa
+ */
+Pung.prototype.makePlayer = function(x) {
+    return new Player(
+	new Location(
+	    x, _scr.h,
+	    new Speed(
+		500, 0,
+		new Acceleration(0, 0)
+	    )
+	), new Shape(20,40));
+};
+
+/**
+ * This method makes the game
  * @param ball The Ball to add
  */
 Pung.prototype.animate = function() {
-    _frames++;
+    var c = this.context;
     var dt = Math.min(new Date().getTime() - this.time, 50);
 
-     $.each(this.balls, function(i, ball) {
-	 ball.move(dt);
+     $.each(this.balls.concat(this.players), function(i, o) {
+	 o.move(dt);
      });
 
-     $.each(this.balls, function(i, ball) {
-	 ball.render(this.context);
+     $.each(this.balls.concat(this.players), function(i, o) {
+	 o.render(c);
      });
 
     this.time = new Date().getTime();
-    setTimeout(this.animate, _step);	
 };
