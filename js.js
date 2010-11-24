@@ -1,9 +1,9 @@
 /*
   Pung - A HTML5 pang rewrite http://pung.tk/
-  
+
   Copyright (C) 2010 Mounier Florian aka paradoxxxzero
   Copyright (C) 2010 Dunklau Ronan
-  
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU Affero General Public License as
   published by the Free Software Foundation, either version 3 of the
@@ -44,7 +44,7 @@ function clip() {
 	_c.fillRect(0, 0, _scr.w, _scr.h);
     } else {
 	$.each(_balls, function(i, ball) {
-	    _c.clearRect(ball.x - ball.r - _clipMargin, ball.y - ball.r - _clipMargin,	
+	    _c.clearRect(ball.x - ball.r - _clipMargin, ball.y - ball.r - _clipMargin,
 			 2 * (ball.r + _clipMargin), 2 * (ball.r + _clipMargin));
 	});
 	$.each(_bullets, function(i, bullet) {
@@ -156,7 +156,7 @@ function renderGrapnels() {
 function renderBalls() {
     _c.save();
     $.each(_balls, function(i, ball) {
-	_c.beginPath();	 
+	_c.beginPath();
  	_c.shadowBlur = 10;
 	_c.shadowColor = _colors.balls[ball.p];
 	_c.fillStyle = _colors.balls[ball.p];
@@ -365,7 +365,7 @@ $(document).ready(function() {
 function init() {
     _frames = 0;
     _step = 5;
-    _clipMargin = 5;
+    _clipMargin = 15;
     _maxSize = 4;
     _urlParams = $.parseQuery();
     _heights = [.75, .625, .5, .25, .125];
