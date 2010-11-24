@@ -24,9 +24,11 @@
  * @constructor
  *
  */
-var Pung = function () {
+var Pung = function (context) {
     this.balls = new Array();
     this.players = new Array();
+    this.context = context;
+    this.time = new Date().getTime();
 };
 
 /**
@@ -59,4 +61,24 @@ Pung.prototype.addPlayer = function(player) {
  */
 Pung.prototype.rmPlayer = function(player) {
 	this.players.splice(this.players.indexof(player), 1);
+};
+
+/**
+ * This method animates the game
+ * @param ball The Ball to add
+ */
+Pung.prototype.animate = function() {
+    _frames++;
+    var dt = Math.min(new Date().getTime() - this.time, 50);
+
+     $.each(this.balls, function(i, ball) {
+	 ball.move(dt);
+     });
+
+     $.each(this.balls, function(i, ball) {
+	 ball.render(this.context);
+     });
+
+    this.time = new Date().getTime();
+    setTimeout(this.animate, _step);	
 };

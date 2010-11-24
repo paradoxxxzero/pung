@@ -52,3 +52,17 @@ Ball.prototype.move = function(dt) {
 		this.location.speed.y *= -1;
 	}
 };
+
+/**
+ * This method renders the ball
+ * @param c The canvas context
+ */
+Ball.prototype.render = function(c) {
+    c.beginPath();	 
+    c.shadowBlur = 10;
+    c.shadowColor = _colors.balls[this.life];
+    c.fillStyle = _colors.balls[this.life];
+    c.arc(this.location.x, this.location.y, this.radius, 0, 2 * Math.PI, false);
+    c.fill();
+};
+
