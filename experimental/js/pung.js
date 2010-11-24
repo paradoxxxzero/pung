@@ -1,22 +1,22 @@
 /*
-  Pung - A HTML5 pang rewrite http://pung.tk/
+ Pung - A HTML5 pang rewrite http://pung.tk/
 
-  Copyright (C) 2010 Mounier Florian aka paradoxxxzero
-  Copyright (C) 2010 Dunklau Ronan
+ Copyright (C) 2010 Mounier Florian aka paradoxxxzero
+ Copyright (C) 2010 Dunklau Ronan
 
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU Affero General Public License as
-  published by the Free Software Foundation, either version 3 of the
-  License, or any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as
+ published by the Free Software Foundation, either version 3 of the
+ License, or any later version.
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU Affero General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
 
-  You should have received a copy of the GNU Affero General Public License
-  along with this program.  If not, see http://www.gnu.org/licenses/.
-*/
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see http://www.gnu.org/licenses/.
+ */
 
 /**
  * This class represents a pung game
@@ -36,7 +36,7 @@ var Pung = function (context) {
  * @param ball The Ball to add
  */
 Pung.prototype.addBall = function(ball) {
-	this.balls.push(ball);
+    this.balls.push(ball);
 };
 
 /**
@@ -44,7 +44,7 @@ Pung.prototype.addBall = function(ball) {
  * @param ball The Ball to remove
  */
 Pung.prototype.rmBall = function(ball) {
-	this.balls.splice(this.balls.indexOf(ball), 1);
+    this.balls.splice(this.balls.indexOf(ball), 1);
 };
 
 /**
@@ -69,7 +69,7 @@ Pung.prototype.makeBall = function(x, xspeed, life) {
  * @param player The Player to add
  */
 Pung.prototype.addPlayer = function(player) {
-	this.players.push(player);
+    this.players.push(player);
 };
 
 /**
@@ -77,7 +77,7 @@ Pung.prototype.addPlayer = function(player) {
  * @param player The Player to remove
  */
 Pung.prototype.rmPlayer = function(player) {
-	this.players.splice(this.players.indexof(player), 1);
+    this.players.splice(this.players.indexof(player), 1);
 };
 
 /**
@@ -103,13 +103,13 @@ Pung.prototype.animate = function() {
     var c = this.context;
     var dt = Math.min(new Date().getTime() - this.time, 50);
 
-     $.each(this.balls.concat(this.players), function(i, o) {
-	 o.move(dt);
-     });
+    $.each(this.balls.concat(this.players), function(i, o) {
+	       o.move(dt);
+	   });
 
-     $.each(this.balls.concat(this.players), function(i, o) {
-	 o.render(c);
-     });
+    $.each(this.balls.concat(this.players), function(i, o) {
+	       o.render(c);
+	   });
 
     this.time = new Date().getTime();
 };
