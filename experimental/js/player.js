@@ -21,6 +21,7 @@
 /**
  * This class represents a player
  *
+ * @author Mounier Florian 
  * @constructor
  * @param location Initial location
  * @param shape Initial shape

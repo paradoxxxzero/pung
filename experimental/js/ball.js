@@ -21,6 +21,7 @@
 /**
  * This class represents a simple ball
  *
+ * @author Mounier Florian 
  * @constructor
  * @param location Initial location
  * @param life Life of the ball defines how many hit remains before the ball dies
@@ -41,6 +42,7 @@ Ball.prototype.sizes = [6.25, 12.5, 25, 50, 100];
 /**
  * This method moves the ball
  * @param dt Time delta to compute move
+ * @return true If the ball must be destroyed
  */
 Ball.prototype.move = function(dt) {
     this.location.move(dt);
@@ -55,6 +57,7 @@ Ball.prototype.move = function(dt) {
 	this.location.y = _scr.h - this.radius();
 	this.location.speed.y *= -1;
     }
+    return false;
 };
 
 /**

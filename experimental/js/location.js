@@ -21,6 +21,7 @@
 /**
  * This class represents a geometric location
  *
+ * @author Mounier Florian 
  * @constructor
  * @param x Initial abscissa
  * @param y Initial ordinate

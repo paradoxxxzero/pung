@@ -19,15 +19,38 @@
  */
 
 /**
- * This class represents a geometric shape (for now, a simple rectangle)
+ * This class represents a bullet
  *
  * @author Mounier Florian 
  * @constructor
- * @param w Initial width
- * @param h Initial heigth
+ * @param location Initial location
+ * @param shape The bullet shape
  *
  */
-var Shape = function (w, h) {
-    this.w = w;
-    this.h = h;
+
+var Bullet = function (location, shape) {
+    this.location = location;
+    this.shape = shape;
+
+};
+
+/**
+ * This method moves the bullet
+ * @param dt Time delta to compute move
+ * @return true If the bullet must be destroyed
+ */
+Bullet.prototype.move = function(dt) {
+    this.location.move(dt);
+    return this.location.y > 0;
+};
+
+/**
+ * This method renders the bullet
+ * @param c The canvas context
+ */
+Bullet.prototype.render = function(c) {
+    c.shadowBlur = 5;
+    c.shadowColor = _colors.bullet;
+    c.fillStyle = _colors.bullet;
+    c.fillRect(this.location.x - this.shape.w / 2, this.location.y, this.shape.w, this.shape.h);
 };

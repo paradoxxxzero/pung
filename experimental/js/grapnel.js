@@ -19,15 +19,38 @@
  */
 
 /**
- * This class represents a geometric shape (for now, a simple rectangle)
+ * This class represents a grapnel
  *
  * @author Mounier Florian 
  * @constructor
- * @param w Initial width
- * @param h Initial heigth
+ * @param location Initial location
+ * @param shape The grapnel shape (h is not used)
  *
  */
-var Shape = function (w, h) {
-    this.w = w;
-    this.h = h;
+
+var Grapnel = function (location, shape) {
+    this.location = location;
+    this.shape = shape;
+
+};
+
+/**
+ * This method moves the grapnel
+ * @param dt Time delta to compute move
+ * @return true If the grapnel must be destroyed
+ */
+Grapnel.prototype.move = function(dt) {
+    this.location.move(dt);
+    return this.location.y > 0;
+};
+
+/**
+ * This method renders the bullet
+ * @param c The canvas context
+ */
+Grapnel.prototype.render = function(c) {
+    c.shadowBlur = 5;
+    c.shadowColor = _colors.grapnel;
+    c.fillStyle = _colors.grapnel;
+    c.fillRect(this.location.x - this.shape.w / 2, this.location.y, this.shape.w, _scr.h - this.location.y);
 };

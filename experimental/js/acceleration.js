@@ -21,6 +21,7 @@
 /**
  * This class represents an acceleration for a location
  *
+ * @author Mounier Florian 
  * @constructor
  * @param x Initial acceleration abscissa
  * @param y Initial acceleration ordinate

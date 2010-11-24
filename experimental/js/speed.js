@@ -21,6 +21,7 @@
 /**
  * This class represents a speed for a location
  *
+ * @author Mounier Florian 
  * @constructor
  * @param x Initial speed abscissa
  * @param y Initial speed ordinate

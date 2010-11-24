@@ -21,6 +21,7 @@
 /**
  * This class represents a pung game
  *
+ * @author Mounier Florian 
  * @constructor
  *
  */
