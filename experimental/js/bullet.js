@@ -60,3 +60,16 @@ Bullet.prototype.render = function(c) {
     c.fillStyle = this.color;
     c.fillRect(this.location.x - this.shape.w / 2, this.location.y, this.shape.w, this.shape.h);
 };
+
+/**
+ * This method tests if the bullet is colliding with the ball
+ * @param ball The ball to test the collision with
+ */
+Bullet.prototype.isCollidingWith = function(ball) {
+    return this.location.distanceTo(ball.location) < ball.radius();
+};
+
+
+Bullet.prototype.toString = function ()  {
+    return "Bullet " + this.location;
+};

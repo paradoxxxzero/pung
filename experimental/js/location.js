@@ -21,7 +21,7 @@
 /**
  * This class represents a geometric location
  *
- * @author Mounier Florian 
+ * @author Mounier Florian
  * @constructor
  * @param x Initial abscissa
  * @param y Initial ordinate
@@ -51,4 +51,16 @@ Location.prototype.moveBackwards = function(dt) {
     this.speed.accelerate(dt);
     this.x -= (this.speed.x * dt) / 1000;
     this.y -= (this.speed.y * dt) / 1000;
+};
+
+/**
+ * This method computes the distance between this location and another
+ * @param other The other location
+ */
+Location.prototype.distanceTo = function(other) {
+    return Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2));
+};
+
+Location.prototype.toString = function ()  {
+    return "L{x: " + this.x + ", y:" + this.y + "} " + this.speed;
 };

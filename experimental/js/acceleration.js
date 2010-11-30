@@ -21,7 +21,7 @@
 /**
  * This class represents an acceleration for a location
  *
- * @author Mounier Florian 
+ * @author Mounier Florian
  * @constructor
  * @param x Initial acceleration abscissa
  * @param y Initial acceleration ordinate
@@ -30,4 +30,8 @@
 var Acceleration = function (x, y) {
     this.x = x;
     this.y = y;
+};
+
+Acceleration.prototype.toString = function ()  {
+    return "A{x: " + this.x + ", y:" + this.y + "}";
 };

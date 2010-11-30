@@ -134,7 +134,8 @@ Pung.prototype.makePlayer = function(x, controls) {
 Pung.prototype.animate = function() {
     var _this = this;
     var c = this.context;
-    var toBeDestroyed = {};
+
+    // Handle player action (bullets, grapnels...)
     $.each(this.players, function(i, player) {
 	       if(player.controls.bullet.down) {
 		   _this.addBullet(new Bullet(player.location.x, _screen.h - player.shape.h, _this.colors.bullet));
@@ -145,6 +146,9 @@ Pung.prototype.animate = function() {
 		   player.controls.grapnel.down = false;
 	       }
 	   });
+
+    // Move all objects
+    var toBeDestroyed = {};
     var dt = Math.min(new Date().getTime() - this.time, 50);
     $.each(this.objects, function(i, os) {
 	       $.each(os, function(i, o) {
@@ -153,9 +157,29 @@ Pung.prototype.animate = function() {
 			  }
 		      });
 	   });
+
+    // Handling ball collision with bullets or grapnels
+    $.each(this.balls, function(i, ball) {
+	       $.each(_this.bullets, function(i, bullet) {
+			  if(bullet.isCollidingWith(ball)) {
+			      toBeDestroyed[ball] = _this.balls;
+			      toBeDestroyed[bullet] = _this.bullets;
+			  }
+		      });
+	       $.each(_this.grapnels, function(i, grapnel) {
+			  if(grapnel.isCollidingWith(ball)) {
+			      toBeDestroyed[ball] = _this.balls;
+			      toBeDestroyed[grapnel] = _this.grapnels;
+			  }
+		      });
+	   });
+
+    // Remove destroyed objects
     $.each(toBeDestroyed, function(o, os) {
 	       os.splice(os.indexOf(o), 1);
 	   });
+
+    // Render all objects
     $.each(this.objects, function(i, os) {
 	       c.save();
 	       $.each(os, function(i, o) {
@@ -163,5 +187,6 @@ Pung.prototype.animate = function() {
 		      });
 	       c.restore();
 	   });
+
     this.time = new Date().getTime();
 };

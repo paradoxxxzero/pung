@@ -21,7 +21,7 @@
 /**
  * This class represents a speed for a location
  *
- * @author Mounier Florian 
+ * @author Mounier Florian
  * @constructor
  * @param x Initial speed abscissa
  * @param y Initial speed ordinate
@@ -41,4 +41,8 @@ var Speed = function (x, y, acceleration) {
 Speed.prototype.accelerate = function (dt) {
     this.x += (this.acceleration.x * dt) / 1000;
     this.y += (this.acceleration.y * dt) / 1000;
+};
+
+Speed.prototype.toString = function ()  {
+    return "S{x: " + this.x + ", y:" + this.y + "} " + this.acceleration;
 };

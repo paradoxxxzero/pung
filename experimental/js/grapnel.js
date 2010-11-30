@@ -61,3 +61,19 @@ Grapnel.prototype.render = function(c) {
     c.fillStyle = this.color;
     c.fillRect(this.location.x - this.shape.w / 2, this.location.y, this.shape.w, _screen.h - this.location.y);
 };
+
+/**
+ * This method tests if the grapnel is colliding with the ball
+ * @param ball The ball to test the collision with
+ */
+Grapnel.prototype.isCollidingWith = function(ball) {
+    return this.location.distanceTo(ball.location) < ball.radius()
+	|| (
+	    ball.location.x - ball.radius() < this.location.x
+		&& ball.location.x + ball.radius() > this.location.x && ball.location.y > this.location.y
+	);
+};
+
+Grapnel.prototype.toString = function ()  {
+    return "Grapnel " + this.location;
+};

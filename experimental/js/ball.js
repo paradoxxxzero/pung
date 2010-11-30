@@ -93,3 +93,6 @@ Ball.prototype.radius = function() {
     return this.sizes[this.life];
 };
 
+Ball.prototype.toString = function ()  {
+    return "Ball R:" + this.radius() + " V:" + this.life + " " + this.location;
+};
