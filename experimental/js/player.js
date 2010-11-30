@@ -45,6 +45,7 @@ var Player = function (x, controls, color) {
 /**
  * This method moves the player
  * @param dt Time delta to compute move
+ * @return true If the player must be destroyed
  */
 Player.prototype.move = function(dt) {
     if(this.controls.right.down && this.location.x + this.shape.w / 2 < _screen.w) {
@@ -53,6 +54,7 @@ Player.prototype.move = function(dt) {
     if(this.controls.left.down && this.location.x - this.shape.w / 2 > 0) {
 	this.location.moveBackwards(dt);
     }
+    return false;
 };
 /**
  * This method renders the player

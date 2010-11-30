@@ -134,6 +134,7 @@ Pung.prototype.makePlayer = function(x, controls) {
 Pung.prototype.animate = function() {
     var _this = this;
     var c = this.context;
+    var toBeDestroyed = {};
     $.each(this.players, function(i, player) {
 	       if(player.controls.bullet.down) {
 		   _this.addBullet(new Bullet(player.location.x, _screen.h - player.shape.h, _this.colors.bullet));
@@ -147,8 +148,13 @@ Pung.prototype.animate = function() {
     var dt = Math.min(new Date().getTime() - this.time, 50);
     $.each(this.objects, function(i, os) {
 	       $.each(os, function(i, o) {
-			  o.move(dt);
+			  if(o.move(dt)) {
+			      toBeDestroyed[o] =  os;
+			  }
 		      });
+	   });
+    $.each(toBeDestroyed, function(o, os) {
+	       os.splice(os.indexOf(o), 1);
 	   });
     $.each(this.objects, function(i, os) {
 	       c.save();

@@ -48,7 +48,7 @@ var Grapnel = function (x, y, color) {
  */
 Grapnel.prototype.move = function(dt) {
     this.location.move(dt);
-    return this.location.y > 0;
+    return this.location.y < 0;
 };
 
 /**

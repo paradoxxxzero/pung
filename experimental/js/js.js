@@ -67,7 +67,7 @@ $(document).ready(
 	var animate = function () {
 	    _frames++;
 	    _c.save();
-	    _c.fillStyle = "rgba(34, 34, 34, 0.5)";
+	    _c.fillStyle = "rgb(34, 34, 34)";
 	    _c.fillRect(0, 0, _screen.w, _screen.h);
 	    _c.restore();
 	    pungGame.animate();

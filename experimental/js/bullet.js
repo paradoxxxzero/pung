@@ -47,7 +47,7 @@ var Bullet = function (x, y, color) {
  */
 Bullet.prototype.move = function(dt) {
     this.location.move(dt);
-    return this.location.y > 0;
+    return this.location.y < 0;
 };
 
 /**
