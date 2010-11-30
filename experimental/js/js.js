@@ -1,77 +1,77 @@
-var _canvas, _c, _scr, _balls, _bullets, _grapnels, _player, _step, _clipMargin, _time, _initTime, _keyboard, _colors, _maxLife, _urlParams, _frames, _heights;
-
-var resize = function() {
-    _scr = {
-	h: _canvas.height = window.innerHeight,
-	w: _canvas.width = window.innerWidth
-    };
-};
-
-var colorsFromCss = function() {
-    _colors = {
-	balls: new Array(),
-	bullet: $("div.bullet").css("color"),
-	grapnel: $("div.grapnel").css("color"),
-	player: $("div.player").css("color")
-    };
-    for (var p = 0 ; p <= _maxLife ; p++) {
-	_colors.balls[p] = $("div.ball-" + p).css("color");
-    }
-};
-
-var displayFps = function () {
-    document.title = _frames + " fps";
-    _frames = 0;
-};
-
-function kdown(event) {
-    if(event.keyCode == 39) {
-	_keyboard.right = true;
-    } else if(event.keyCode == 37) {
-	_keyboard.left = true;
-    }
-}
-
-function kup(event) {
-    if(event.keyCode == 39) {
-	_keyboard.right = false;
-    } else if(event.keyCode == 37) {
-	_keyboard.left = false;
-    }
-}
+var _screen, _keyboard;
 
 $(document).ready(
+    /**
+     * Main function called when the document is ready
+     * @author Mounier Florian
+     */
     function () {
-	$(window).resize(resize);
-	$(window).keydown(kdown);
-	$(window).keyup(kup);
-	_frames = 0;
-	_step = 5;
-	_clipMargin = 5;
-	_maxLife = 4;
-	_urlParams = $.parseQuery();
-	_heights = [.75, .625, .5, .25, .125];
-
-	_canvas = $('#canvas')[0];
-	_c = _canvas.getContext('2d');
-	resize();
-	_keyboard = {
-	    left: false,
-	    right: false
-	};
-	_initTime = _time = new Date().getTime();
-	colorsFromCss();
-	setInterval(displayFps, 1000);
-
+	var _canvas = $('#canvas')[0];
+	var _c = _canvas.getContext('2d');
 	var pungGame = new Pung(_c);
-	pungGame.addBall(pungGame.makeBall(50, 200, _maxLife));
-	pungGame.addBall(pungGame.makeBall(400, -100, _maxLife - 1));
-	pungGame.addPlayer(pungGame.makePlayer(50));
+	_screen = new Screen(_canvas);
+	_keyboard = new Keyboard(pungGame);
+
+	$(window).resize(function (event) {_screen.resize(event);});
+	$(window).keydown(function (event) {_keyboard.down(event);});
+	$(window).keyup(function (event) {_keyboard.up(event);});
+
+	pungGame.addBall(pungGame.makeBall(50, 200, pungGame.maxBallLife));
+	pungGame.addBall(pungGame.makeBall(400, -100, pungGame.maxBallLife - 1));
+
+	var leftPlayerSet = {
+			   left: {
+			       keyCode: 37,
+			       down: false
+			   },
+			   right: {
+			       keyCode: 39,
+			       down: false
+			   },
+			   bullet: {
+			       keyCode: 17,
+			       down: false
+			   },
+			   grapnel: {
+			       keyCode: 16,
+			       down: false
+			   }};
+	var rightPlayerSet = {
+			   left: {
+			       keyCode: 68,
+			       down: false
+			   },
+			   right: {
+			       keyCode: 71,
+			       down: false
+			   },
+			   bullet: {
+			       keyCode: 65,
+			       down: false
+			   },
+			   grapnel: {
+			       keyCode: 81,
+			       down: false
+			   }};
+
+	pungGame.addPlayer(pungGame.makePlayer(50, leftPlayerSet));
+	pungGame.addPlayer(pungGame.makePlayer(250, rightPlayerSet));
+
+	var _frames = 0;
+	var displayFps = function() {
+	    document.title = _frames + " fps";
+	    _frames = 0;
+	};
+	setInterval(displayFps, 1000);
 
 	var animate = function () {
 	    _frames++;
+	    _c.save();
+	    _c.fillStyle = "rgba(34, 34, 34, 0.5)";
+	    _c.fillRect(0, 0, _screen.w, _screen.h);
+	    _c.restore();
 	    pungGame.animate();
-	    setTimeout(animate, _step);
+	    setTimeout(animate, 5);
 	};
 	animate();
     }

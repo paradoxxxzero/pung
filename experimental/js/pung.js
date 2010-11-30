@@ -21,15 +21,28 @@
 /**
  * This class represents a pung game
  *
- * @author Mounier Florian 
+ * @author Mounier Florian
  * @constructor
  *
  */
 var Pung = function (context) {
     this.balls = new Array();
     this.players = new Array();
+    this.bullets = new Array();
+    this.grapnels = new Array();
+    this.objects = [this.balls, this.players, this.bullets, this.grapnels];
     this.context = context;
     this.time = new Date().getTime();
+    this.maxBallLife = 4;
+    this.colors = {
+	balls: new Array(),
+	bullet: $("div.bullet").css("color"),
+	grapnel: $("div.grapnel").css("color"),
+	player: $("div.player").css("color")
+    };
+    for (var p = 0 ; p <= this.maxBallLife ; p++) {
+	this.colors.balls[p] = $("div.ball-" + p).css("color");
+    }
 };
 
 /**
@@ -49,20 +62,45 @@ Pung.prototype.rmBall = function(ball) {
 };
 
 /**
+ * This method adds a bullet to the game
+ * @param bullet The Bullet to add
+ */
+Pung.prototype.addBullet = function(bullet) {
+    this.bullets.push(bullet);
+};
+
+/**
+ * This methods erases a bullet from the game
+ * @param bullet The Bullet to remove
+ */
+Pung.prototype.rmBullet = function(bullet) {
+    this.bullets.splice(this.bullets.indexOf(bullet), 1);
+};
+
+/**
+ * This method adds a grapnel to the game
+ * @param grapnel The Grapnel to add
+ */
+Pung.prototype.addGrapnel = function(grapnel) {
+    this.grapnels.push(grapnel);
+};
+
+/**
+ * This methods erases a bullet from the game
+ * @param bullet The Bullet to remove
+ */
+Pung.prototype.rmGrapnel = function(grapnel) {
+    this.grapnels.splice(this.bullets.indexOf(grapnel), 1);
+};
+
+/**
  * This utility method creates a new ball with default values
  * @param x The initial ball abscissa
  * @param xspeed The initial ball horizontal speed
  * @param life The initial ball life
  */
 Pung.prototype.makeBall = function(x, xspeed, life) {
-    return new Ball(
-	new Location(
-	    x, _scr.h * _heights[life - 1],
-	    new Speed(
-		xspeed, 0,
-		new Acceleration(0, 980)
-	    )
-	), life);
+    return new Ball(x, xspeed, life, this.colors.balls[life]);
 };
 
 /**
@@ -85,15 +123,8 @@ Pung.prototype.rmPlayer = function(player) {
  * This utility method creates a new player with default values
  * @param x The initial player abscissa
  */
-Pung.prototype.makePlayer = function(x) {
-    return new Player(
-	new Location(
-	    x, _scr.h,
-	    new Speed(
-		500, 0,
-		new Acceleration(0, 0)
-	    )
-	), new Shape(20,40));
+Pung.prototype.makePlayer = function(x, controls) {
+    return new Player(x, controls, this.colors.player);
 };
 
 /**
@@ -101,16 +132,30 @@ Pung.prototype.makePlayer = function(x) {
  * @param ball The Ball to add
  */
 Pung.prototype.animate = function() {
+    var _this = this;
     var c = this.context;
+    $.each(this.players, function(i, player) {
+	       if(player.controls.bullet.down) {
+		   _this.addBullet(new Bullet(player.location.x, _screen.h - player.shape.h, _this.colors.bullet));
+		   player.controls.bullet.down = false;
+	       }
+	       if(player.controls.grapnel.down) {
+		   _this.addGrapnel(new Grapnel(player.location.x, _screen.h - player.shape.h, _this.colors.grapnel));
+		   player.controls.grapnel.down = false;
+	       }
+	   });
     var dt = Math.min(new Date().getTime() - this.time, 50);
-
-    $.each(this.balls.concat(this.players), function(i, o) {
-	       o.move(dt);
+    $.each(this.objects, function(i, os) {
+	       $.each(os, function(i, o) {
+			  o.move(dt);
+		      });
 	   });
-
-    $.each(this.balls.concat(this.players), function(i, o) {
-	       o.render(c);
+    $.each(this.objects, function(i, os) {
+	       c.save();
+	       $.each(os, function(i, o) {
+			  o.render(c);
+		      });
+	       c.restore();
 	   });
-
     this.time = new Date().getTime();
 };

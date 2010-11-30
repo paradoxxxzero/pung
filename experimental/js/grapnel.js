@@ -21,16 +21,23 @@
 /**
  * This class represents a grapnel
  *
- * @author Mounier Florian 
+ * @author Mounier Florian
  * @constructor
- * @param location Initial location
- * @param shape The grapnel shape (h is not used)
+ * @param x Initial abscissa
+ * @param y Initial ordinate
+ * @param color The grapnel color
  *
  */
 
-var Grapnel = function (location, shape) {
-    this.location = location;
-    this.shape = shape;
+var Grapnel = function (x, y, color) {
+    this.location = new Location(
+	x, y,
+	new Speed(
+	    0, -1000,
+	    new Acceleration(0, 0)
+	));
+    this.shape = new Shape(4, 0);
+    this.color = color;
 
 };
 
@@ -50,7 +57,7 @@ Grapnel.prototype.move = function(dt) {
  */
 Grapnel.prototype.render = function(c) {
     c.shadowBlur = 5;
-    c.shadowColor = _colors.grapnel;
-    c.fillStyle = _colors.grapnel;
-    c.fillRect(this.location.x - this.shape.w / 2, this.location.y, this.shape.w, _scr.h - this.location.y);
+    c.shadowColor = this.color;
+    c.fillStyle = this.color;
+    c.fillRect(this.location.x - this.shape.w / 2, this.location.y, this.shape.w, _screen.h - this.location.y);
 };

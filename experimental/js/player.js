@@ -20,16 +20,26 @@
 
 /**
  * This class represents a player
- *
- * @author Mounier Florian 
+ * This constructor initializes the player with a default shape
+ * @author Mounier Florian
  * @constructor
- * @param location Initial location
- * @param shape Initial shape
+ * @param x The initial player abscissa
+ * @param controls The keyboard keyCodes to control this player
+ *   example:
+ * @param color The player color
  *
  */
-var Player = function (location, shape) {
-    this.location = location;
-    this.shape = shape;
+var Player = function (x, controls, color) {
+    this.location = new Location(
+	x, _screen.h,
+	new Speed(
+	    500, 0,
+	    new Acceleration(0, 0)
+	)
+    );
+    this.shape = new Shape(20,40);
+    this.controls = controls;
+    this.color = color;
 };
 
 /**
@@ -37,10 +47,10 @@ var Player = function (location, shape) {
  * @param dt Time delta to compute move
  */
 Player.prototype.move = function(dt) {
-    if(_keyboard.right && this.location.x + this.shape.w / 2 < _scr.w) {
+    if(this.controls.right.down && this.location.x + this.shape.w / 2 < _screen.w) {
 	this.location.move(dt);
     }
-    if(_keyboard.left && this.location.x - this.shape.w / 2 > 0) {
+    if(this.controls.left.down && this.location.x - this.shape.w / 2 > 0) {
 	this.location.moveBackwards(dt);
     }
 };
@@ -50,8 +60,8 @@ Player.prototype.move = function(dt) {
  */
 Player.prototype.render = function(c) {
     c.shadowBlur = 5;
-    c.shadowColor = _colors.player;
-    c.fillStyle = _colors.player;
-    c.fillRect(this.location.x - this.shape.w / 2, _scr.h - this.shape.h, this.shape.w, this.shape.h);
+    c.shadowColor = this.color;
+    c.fillStyle = this.color;
+    c.fillRect(this.location.x - this.shape.w / 2, _screen.h - this.shape.h, this.shape.w, this.shape.h);
 };
 

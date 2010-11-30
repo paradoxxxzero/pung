@@ -19,44 +19,42 @@
  */
 
 /**
- * This class represents a bullet
+ * This class represents the keyboard and handle key states
  *
  * @author Mounier Florian
  * @constructor
- * @param x Initial abscissa
- * @param y Initial ordinate
- * @param color The bullet color
+ * @param pung The pung game controlled by the keyboard
  *
  */
-
-var Bullet = function (x, y, color) {
-    this.location = new Location(
-	x, y,
-	new Speed(
-	    0, -2000,
-	    new Acceleration(0, 0)
-	));
-    this.shape = new Shape(2, 10);
-    this.color = color;
+var Keyboard = function (pung) {
+    this.right = false;
+    this.left = false;
+    this.pung = pung;
 };
 
 /**
- * This method moves the bullet
- * @param dt Time delta to compute move
- * @return true If the bullet must be destroyed
+ * This method handle a key down
  */
-Bullet.prototype.move = function(dt) {
-    this.location.move(dt);
-    return this.location.y > 0;
+Keyboard.prototype.down = function(event) {
+    $.each(this.pung.players, function (i, player) {
+	       $.each(player.controls, function (k, o) {
+			  if(event.keyCode == o.keyCode) {
+			      o.down = true;
+			  }
+		      });
+	   });
 };
 
 /**
- * This method renders the bullet
- * @param c The canvas context
+ * This method handle a key up
  */
-Bullet.prototype.render = function(c) {
-    c.shadowBlur = 5;
-    c.shadowColor = this.color;
-    c.fillStyle = this.color;
-    c.fillRect(this.location.x - this.shape.w / 2, this.location.y, this.shape.w, this.shape.h);
+Keyboard.prototype.up = function(event) {
+    $.each(this.pung.players, function (i, player) {
+	       $.each(player.controls, function (k, o) {
+			  if(event.keyCode == o.keyCode) {
+			      o.down = false;
+			  }
+		      });
+	   });
 };
+
