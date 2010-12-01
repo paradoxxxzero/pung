@@ -30,7 +30,7 @@ var Pung = function (context) {
     this.players = new Array();
     this.bullets = new Array();
     this.grapnels = new Array();
-    this.objects = [this.balls, this.players, this.bullets, this.grapnels];
+    this.objects = [this.balls, this.bullets, this.grapnels, this.players];
     this.context = context;
     this.time = new Date().getTime();
 };
