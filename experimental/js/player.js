@@ -28,15 +28,15 @@
  *
  */
 var Player = function (x, index, controls) {
+    this.shape = new Shape(20,40);
     this.location = new Location(
-	x, _screen.h,
+	x, _screen.h - this.shape.h,
 	new Speed(
 	    500, 0,
 	    new Acceleration(0, 0)
 	)
     );
     this.index = index;
-    this.shape = new Shape(20,40);
     this.controls = controls;
     this.color = Player.colors[index];
 };
@@ -78,7 +78,22 @@ Player.prototype.render = function(c) {
     c.shadowBlur = 5;
     c.shadowColor = this.color;
     c.fillStyle = this.color;
-    c.fillRect(this.location.x - this.shape.w / 2, _screen.h - this.shape.h, this.shape.w, this.shape.h);
+    c.fillRect(this.location.x - this.shape.w / 2, this.location.y, this.shape.w, this.shape.h);
+};
+
+/**
+ * This method tests if the player is colliding with the ball
+ * @param ball The ball to test the collision with
+ */
+Player.prototype.isCollidingWith = function(ball) {
+    var originalX = this.location.x;
+    this.location.x -= this.shape.w / 2;
+    // Approx collision by only computing the two top corners of the player :
+    var colliding = this.location.distanceTo(ball.location) < ball.radius;
+    this.location.x += this.shape.w;
+    colliding = colliding || this.location.distanceTo(ball.location) < ball.radius;
+    this.location.x = originalX;
+    return colliding;
 };
 
 Player.prototype.toString = function ()  {

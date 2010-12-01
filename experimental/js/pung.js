@@ -174,6 +174,11 @@ Pung.prototype.animate = function() {
 			      }
 			  }
 		      });
+	       $.each(_this.players, function(j, player) {
+			  if(player.isCollidingWith(ball)) {
+			      toBeDestroyed.push({os: _this.players, o: player});
+			  }
+		      });
 	   });
 
     // Remove destroyed objects
