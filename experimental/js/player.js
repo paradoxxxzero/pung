@@ -24,12 +24,12 @@
  * @author Mounier Florian
  * @constructor
  * @param x The initial player abscissa
+ * @param index The player index (1 for p1, 2 for p2, ...)
  * @param controls The keyboard keyCodes to control this player
- *   example:
  * @param color The player color
  *
  */
-var Player = function (x, controls, color) {
+var Player = function (x, index, controls, color) {
     this.location = new Location(
 	x, _screen.h,
 	new Speed(
@@ -37,6 +37,7 @@ var Player = function (x, controls, color) {
 	    new Acceleration(0, 0)
 	)
     );
+    this.index = index;
     this.shape = new Shape(20,40);
     this.controls = controls;
     this.color = color;

@@ -34,14 +34,20 @@ var Pung = function (context) {
     this.context = context;
     this.time = new Date().getTime();
     this.maxBallLife = 4;
+    this.maxPlayer = 2;
     this.colors = {
 	balls: new Array(),
-	bullet: $("div.bullet").css("color"),
-	grapnel: $("div.grapnel").css("color"),
-	player: $("div.player").css("color")
+	bullets: new Array(),
+	grapnels: new Array(),
+	players: new Array(),
     };
     for (var p = 0 ; p <= this.maxBallLife ; p++) {
 	this.colors.balls[p] = $("div.ball-" + p).css("color");
+    }
+    for (var p = 1 ; p <= this.maxPlayer ; p++) {
+	this.colors.bullets[p] = $("div.bullet-" + p).css("color");
+	this.colors.grapnels[p] = $("div.grapnel-" + p).css("color");
+	this.colors.players[p] = $("div.player-" + p).css("color");
     }
 };
 
@@ -123,8 +129,8 @@ Pung.prototype.rmPlayer = function(player) {
  * This utility method creates a new player with default values
  * @param x The initial player abscissa
  */
-Pung.prototype.makePlayer = function(x, controls) {
-    return new Player(x, controls, this.colors.player);
+Pung.prototype.makePlayer = function(x, controls, index) {
+    return new Player(x, index, controls, this.colors.players[index]);
 };
 
 /**
@@ -138,11 +144,11 @@ Pung.prototype.animate = function() {
     // Handle player action (bullets, grapnels...)
     $.each(this.players, function(i, player) {
 	       if(player.controls.bullet.down) {
-		   _this.addBullet(new Bullet(player.location.x, _screen.h - player.shape.h, _this.colors.bullet));
+		   _this.addBullet(new Bullet(player.location.x, _screen.h - player.shape.h, _this.colors.bullets[player.index]));
 		   player.controls.bullet.down = false;
 	       }
 	       if(player.controls.grapnel.down) {
-		   _this.addGrapnel(new Grapnel(player.location.x, _screen.h - player.shape.h, _this.colors.grapnel));
+		   _this.addGrapnel(new Grapnel(player.location.x, _screen.h - player.shape.h, _this.colors.grapnels[player.index]));
 		   player.controls.grapnel.down = false;
 	       }
 	   });
