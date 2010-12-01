@@ -199,11 +199,15 @@ ul.inheritsList
 	
 	<li><a href="../symbols/Grapnel.html">Grapnel</a></li>
 	
+	<li><a href="../symbols/Keyboard.html">Keyboard</a></li>
+	
 	<li><a href="../symbols/Location.html">Location</a></li>
 	
 	<li><a href="../symbols/Player.html">Player</a></li>
 	
 	<li><a href="../symbols/Pung.html">Pung</a></li>
+	
+	<li><a href="../symbols/Screen.html">Screen</a></li>
 	
 	<li><a href="../symbols/Shape.html">Shape</a></li>
 	
@@ -229,7 +233,7 @@ ul.inheritsList
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/_home_zero_¬_pung_experimental_js_player.js.html">player.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/player.js.html">player.js</a>.
 				
 			</p>
 
@@ -248,9 +252,10 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/Player.html#constructor">Player</a></b>(location, shape)
+								<b><a href="../symbols/Player.html#constructor">Player</a></b>(x, index, controls)
 							</div>
-							<div class="description">This class represents a player</div>
+							<div class="description">This class represents a player
+This constructor initializes the player with a default shape</div>
 						</td>
 					</tr>
 				</tbody>
@@ -258,6 +263,44 @@ ul.inheritsList
 			
 
 <!-- ============================== properties summary ===================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class Player.">
+					<caption>Field Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Field Attributes</th>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								Player.<b><a href="../symbols/Player.html#.colors">colors</a></b>
+								</div>
+								<div class="description">Static player colors</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								Player.<b><a href="../symbols/Player.html#.maxPlayers">maxPlayers</a></b>
+								</div>
+								<div class="description">Static max player number (for colors)</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
 			
 
 <!-- ============================== methods summary ======================== -->
@@ -277,6 +320,15 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/Player.html#isCollidingWith">isCollidingWith</a></b>(ball)
+								</div>
+								<div class="description">This method tests if the player is colliding with the ball</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/Player.html#move">move</a></b>(dt)
 								</div>
 								<div class="description">This method moves the player</div>
@@ -289,6 +341,15 @@ ul.inheritsList
 								<div class="fixedFont"><b><a href="../symbols/Player.html#render">render</a></b>(c)
 								</div>
 								<div class="description">This method renders the player</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/Player.html#toString">toString</a></b>()
+								</div>
+								<div class="description"></div>
 							</td>
 						</tr>
 					
@@ -309,11 +370,12 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>Player</b>(location, shape)
+						<b>Player</b>(x, index, controls)
 				</div>
 				
 				<div class="description">
 					This class represents a player
+This constructor initializes the player with a default shape
 					<br /><i>Author: </i>Mounier Florian.
 				</div>
 				
@@ -325,16 +387,22 @@ ul.inheritsList
 						<dt class="heading">Parameters:</dt>
 						
 							<dt>
-								 <b>location</b>
+								 <b>x</b>
 								
 							</dt>
-								<dd>Initial location</dd>
+								<dd>The initial player abscissa</dd>
 						
 							<dt>
-								 <b>shape</b>
+								 <b>index</b>
 								
 							</dt>
-								<dd>Initial shape</dd>
+								<dd>The player index (1 for p1, 2 for p2, ...)</dd>
+						
+							<dt>
+								 <b>controls</b>
+								
+							</dt>
+								<dd>The keyboard keyCodes to control this player</dd>
 						
 						</dl>
 					
@@ -350,12 +418,97 @@ ul.inheritsList
 
 <!-- ============================== field details ========================== -->		
 			
+				<div class="sectionTitle">
+					Field Detail
+				</div>
+				
+					<a name=".colors"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Player.</span><b>colors</b>
+					
+					</div>
+					<div class="description">
+						Static player colors
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".maxPlayers"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Player.</span><b>maxPlayers</b>
+					
+					</div>
+					<div class="description">
+						Static max player number (for colors)
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					
+				
+			
 
 <!-- ============================== method details ========================= -->		
 			
 				<div class="sectionTitle">
 					Method Detail
 				</div>
+				
+					<a name="isCollidingWith"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>isCollidingWith</b>(ball)
+					
+					</div>
+					<div class="description">
+						This method tests if the player is colliding with the ball
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>ball</b>
+									
+								</dt>
+								<dd>The ball to test the collision with</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
 				
 					<a name="move"> </a>
 					<div class="fixedFont">
@@ -387,6 +540,13 @@ ul.inheritsList
 						
 						
 						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd>true If the player must be destroyed</dd>
+							
+							</dl>
 						
 						
 						
@@ -427,6 +587,31 @@ ul.inheritsList
 						
 						
 
+					<hr />
+				
+					<a name="toString"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>toString</b>()
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
 					
 				
 			
@@ -441,7 +626,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Nov 24 2010 16:52:09 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Dec 01 2010 16:30:57 GMT+0100 (CET)
 		</div>
 	</body>
 </html>

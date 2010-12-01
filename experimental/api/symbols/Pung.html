@@ -199,11 +199,15 @@ ul.inheritsList
 	
 	<li><a href="../symbols/Grapnel.html">Grapnel</a></li>
 	
+	<li><a href="../symbols/Keyboard.html">Keyboard</a></li>
+	
 	<li><a href="../symbols/Location.html">Location</a></li>
 	
 	<li><a href="../symbols/Player.html">Player</a></li>
 	
 	<li><a href="../symbols/Pung.html">Pung</a></li>
+	
+	<li><a href="../symbols/Screen.html">Screen</a></li>
 	
 	<li><a href="../symbols/Shape.html">Shape</a></li>
 	
@@ -229,7 +233,7 @@ ul.inheritsList
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/_home_zero_¬_pung_experimental_js_pung.js.html">pung.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/pung.js.html">pung.js</a>.
 				
 			</p>
 
@@ -286,6 +290,24 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/Pung.html#addBullet">addBullet</a></b>(bullet)
+								</div>
+								<div class="description">This method adds a bullet to the game</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/Pung.html#addGrapnel">addGrapnel</a></b>(grapnel)
+								</div>
+								<div class="description">This method adds a grapnel to the game</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/Pung.html#addPlayer">addPlayer</a></b>(player)
 								</div>
 								<div class="description">This method adds a player to the game</div>
@@ -304,24 +326,6 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/Pung.html#makeBall">makeBall</a></b>(x, xspeed, life)
-								</div>
-								<div class="description">This utility method creates a new ball with default values</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/Pung.html#makePlayer">makePlayer</a></b>(x)
-								</div>
-								<div class="description">This utility method creates a new player with default values</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/Pung.html#rmBall">rmBall</a></b>(ball)
 								</div>
 								<div class="description">This methods erases a ball from the game</div>
@@ -331,9 +335,36 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/Pung.html#rmBullet">rmBullet</a></b>(bullet)
+								</div>
+								<div class="description">This methods erases a bullet from the game</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/Pung.html#rmGrapnel">rmGrapnel</a></b>(bullet)
+								</div>
+								<div class="description">This methods erases a bullet from the game</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/Pung.html#rmPlayer">rmPlayer</a></b>(player)
 								</div>
 								<div class="description">This methods suppress a player from the game</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/Pung.html#toString">toString</a></b>()
+								</div>
+								<div class="description"></div>
 							</td>
 						</tr>
 					
@@ -373,7 +404,7 @@ ul.inheritsList
 								 <b>context</b>
 								
 							</dt>
-								<dd></dd>
+								<dd>The 2d canvas context</dd>
 						
 						</dl>
 					
@@ -420,6 +451,78 @@ ul.inheritsList
 									
 								</dt>
 								<dd>The Ball to add</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="addBullet"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>addBullet</b>(bullet)
+					
+					</div>
+					<div class="description">
+						This method adds a bullet to the game
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>bullet</b>
+									
+								</dt>
+								<dd>The Bullet to add</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="addGrapnel"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>addGrapnel</b>(grapnel)
+					
+					</div>
+					<div class="description">
+						This method adds a grapnel to the game
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>grapnel</b>
+									
+								</dt>
+								<dd>The Grapnel to add</dd>
 							
 							</dl>
 						
@@ -499,89 +602,14 @@ ul.inheritsList
 						
 						
 						
-						
-						
-
-					<hr />
-				
-					<a name="makeBall"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>makeBall</b>(x, xspeed, life)
-					
-					</div>
-					<div class="description">
-						This utility method creates a new ball with default values
-						
-						
-					</div>
-					
-					
-					
-						
 							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
+							<dt class="heading">Returns:</dt>
 							
-								<dt>
-									<b>x</b>
-									
-								</dt>
-								<dd>The initial ball abscissa</dd>
-							
-								<dt>
-									<b>xspeed</b>
-									
-								</dt>
-								<dd>The initial ball horizontal speed</dd>
-							
-								<dt>
-									<b>life</b>
-									
-								</dt>
-								<dd>The initial ball life</dd>
+								<dd>True if the game goes on
+        False if the players won this level
+        Null if the level is lost</dd>
 							
 							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="makePlayer"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>makePlayer</b>(x)
-					
-					</div>
-					<div class="description">
-						This utility method creates a new player with default values
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>x</b>
-									
-								</dt>
-								<dd>The initial player abscissa</dd>
-							
-							</dl>
-						
-						
-						
-						
 						
 						
 						
@@ -612,6 +640,78 @@ ul.inheritsList
 									
 								</dt>
 								<dd>The Ball to remove</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="rmBullet"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>rmBullet</b>(bullet)
+					
+					</div>
+					<div class="description">
+						This methods erases a bullet from the game
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>bullet</b>
+									
+								</dt>
+								<dd>The Bullet to remove</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="rmGrapnel"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>rmGrapnel</b>(bullet)
+					
+					</div>
+					<div class="description">
+						This methods erases a bullet from the game
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>bullet</b>
+									
+								</dt>
+								<dd>The Bullet to remove</dd>
 							
 							</dl>
 						
@@ -658,6 +758,31 @@ ul.inheritsList
 						
 						
 
+					<hr />
+				
+					<a name="toString"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>toString</b>()
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
 					
 				
 			
@@ -672,7 +797,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Nov 24 2010 16:52:09 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Dec 01 2010 16:30:57 GMT+0100 (CET)
 		</div>
 	</body>
 </html>

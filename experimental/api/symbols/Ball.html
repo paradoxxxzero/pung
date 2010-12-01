@@ -199,11 +199,15 @@ ul.inheritsList
 	
 	<li><a href="../symbols/Grapnel.html">Grapnel</a></li>
 	
+	<li><a href="../symbols/Keyboard.html">Keyboard</a></li>
+	
 	<li><a href="../symbols/Location.html">Location</a></li>
 	
 	<li><a href="../symbols/Player.html">Player</a></li>
 	
 	<li><a href="../symbols/Pung.html">Pung</a></li>
+	
+	<li><a href="../symbols/Screen.html">Screen</a></li>
 	
 	<li><a href="../symbols/Shape.html">Shape</a></li>
 	
@@ -229,7 +233,7 @@ ul.inheritsList
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/_home_zero_¬_pung_experimental_js_ball.js.html">ball.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/ball.js.html">ball.js</a>.
 				
 			</p>
 
@@ -248,9 +252,10 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/Ball.html#constructor">Ball</a></b>(location, life)
+								<b><a href="../symbols/Ball.html#constructor">Ball</a></b>(x, xspeed, life)
 							</div>
-							<div class="description">This class represents a simple ball</div>
+							<div class="description">This class represents a simple ball
+This constructor initialize y speed to 0 and acceleration to standard gravity acceleration</div>
 						</td>
 					</tr>
 				</tbody>
@@ -272,10 +277,40 @@ ul.inheritsList
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/Ball.html#sizes">sizes</a></b>
+								Ball.<b><a href="../symbols/Ball.html#.colors">colors</a></b>
+								</div>
+								<div class="description">Static balls colors</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								Ball.<b><a href="../symbols/Ball.html#.heights">heights</a></b>
+								</div>
+								<div class="description">Static max heights for balls</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								Ball.<b><a href="../symbols/Ball.html#.maxLife">maxLife</a></b>
+								</div>
+								<div class="description">Static max life for balls</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								Ball.<b><a href="../symbols/Ball.html#.sizes">sizes</a></b>
 								</div>
 								<div class="description">Static sizes for balls life</div>
 							</td>
@@ -305,6 +340,15 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/Ball.html#fork">fork</a></b>()
+								</div>
+								<div class="description">This method forks a ball after a collision</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/Ball.html#move">move</a></b>(dt)
 								</div>
 								<div class="description">This method moves the ball</div>
@@ -314,18 +358,18 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/Ball.html#radius">radius</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/Ball.html#render">render</a></b>(c)
 								</div>
-								<div class="description">This method return the ball radius which depends the ball life</div>
+								<div class="description">This method renders the ball</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/Ball.html#render">render</a></b>(c)
+								<div class="fixedFont"><b><a href="../symbols/Ball.html#toString">toString</a></b>()
 								</div>
-								<div class="description">This method renders the ball</div>
+								<div class="description"></div>
 							</td>
 						</tr>
 					
@@ -346,11 +390,12 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>Ball</b>(location, life)
+						<b>Ball</b>(x, xspeed, life)
 				</div>
 				
 				<div class="description">
 					This class represents a simple ball
+This constructor initialize y speed to 0 and acceleration to standard gravity acceleration
 					<br /><i>Author: </i>Mounier Florian.
 				</div>
 				
@@ -362,10 +407,16 @@ ul.inheritsList
 						<dt class="heading">Parameters:</dt>
 						
 							<dt>
-								 <b>location</b>
+								 <b>x</b>
 								
 							</dt>
-								<dd>Initial location</dd>
+								<dd>The initial ball abscissa</dd>
+						
+							<dt>
+								 <b>xspeed</b>
+								
+							</dt>
+								<dd>The initial ball horizontal speed</dd>
 						
 							<dt>
 								 <b>life</b>
@@ -391,11 +442,77 @@ ul.inheritsList
 					Field Detail
 				</div>
 				
-					<a name="sizes"> </a>
-					<div class="fixedFont">
+					<a name=".colors"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<b>sizes</b>
+					<span class="light">Ball.</span><b>colors</b>
+					
+					</div>
+					<div class="description">
+						Static balls colors
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".heights"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ball.</span><b>heights</b>
+					
+					</div>
+					<div class="description">
+						Static max heights for balls
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".maxLife"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ball.</span><b>maxLife</b>
+					
+					</div>
+					<div class="description">
+						Static max life for balls
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".sizes"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ball.</span><b>sizes</b>
 					
 					</div>
 					<div class="description">
@@ -420,6 +537,38 @@ ul.inheritsList
 				<div class="sectionTitle">
 					Method Detail
 				</div>
+				
+					<a name="fork"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>fork</b>()
+					
+					</div>
+					<div class="description">
+						This method forks a ball after a collision
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd>an object with the two forked balls one .left and one .right or null if this ball has no more life</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
 				
 					<a name="move"> </a>
 					<div class="fixedFont">
@@ -464,31 +613,6 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="radius"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>radius</b>()
-					
-					</div>
-					<div class="description">
-						This method return the ball radius which depends the ball life
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
 					<a name="render"> </a>
 					<div class="fixedFont">
 					
@@ -523,6 +647,31 @@ ul.inheritsList
 						
 						
 
+					<hr />
+				
+					<a name="toString"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>toString</b>()
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
 					
 				
 			
@@ -537,7 +686,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Nov 24 2010 16:52:09 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Dec 01 2010 16:30:56 GMT+0100 (CET)
 		</div>
 	</body>
 </html>

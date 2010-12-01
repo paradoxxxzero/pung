@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - Bullet</title>
+		<title>JsDoc Reference - Screen</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -222,7 +222,7 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class Bullet
+				Class Screen
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
@@ -233,13 +233,13 @@ ul.inheritsList
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/bullet.js.html">bullet.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/screen.js.html">screen.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class Bullet.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class Screen.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -252,9 +252,9 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/Bullet.html#constructor">Bullet</a></b>(player)
+								<b><a href="../symbols/Screen.html#constructor">Screen</a></b>(canvas)
 							</div>
-							<div class="description">This class represents a bullet</div>
+							<div class="description">This class represents the screen</div>
 						</td>
 					</tr>
 				</tbody>
@@ -263,40 +263,12 @@ ul.inheritsList
 
 <!-- ============================== properties summary ===================== -->
 			
-				
-				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class Bullet.">
-					<caption>Field Summary</caption>
-					<thead>
-						<tr>
-							<th scope="col">Field Attributes</th>
-							<th scope="col">Field Name and Description</th>
-						</tr>
-					</thead>
-					<tbody>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								Bullet.<b><a href="../symbols/Bullet.html#.colors">colors</a></b>
-								</div>
-								<div class="description">Static bullet colors</div>
-							</td>
-						</tr>
-					
-					</tbody>
-				</table>
-				
-				
-				
-			
 
 <!-- ============================== methods summary ======================== -->
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class Bullet.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class Screen.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -309,34 +281,16 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/Bullet.html#isCollidingWith">isCollidingWith</a></b>(ball)
+								<div class="fixedFont"><b><a href="../symbols/Screen.html#resize">resize</a></b>()
 								</div>
-								<div class="description">This method tests if the bullet is colliding with the ball</div>
+								<div class="description">This method refresh the canvas on resize</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/Bullet.html#move">move</a></b>(dt)
-								</div>
-								<div class="description">This method moves the bullet</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/Bullet.html#render">render</a></b>(c)
-								</div>
-								<div class="description">This method renders the bullet</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/Bullet.html#toString">toString</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/Screen.html#toString">toString</a></b>()
 								</div>
 								<div class="description"></div>
 							</td>
@@ -359,11 +313,11 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>Bullet</b>(player)
+						<b>Screen</b>(canvas)
 				</div>
 				
 				<div class="description">
-					This class represents a bullet
+					This class represents the screen
 					<br /><i>Author: </i>Mounier Florian.
 				</div>
 				
@@ -375,10 +329,10 @@ ul.inheritsList
 						<dt class="heading">Parameters:</dt>
 						
 							<dt>
-								 <b>player</b>
+								 <b>canvas</b>
 								
 							</dt>
-								<dd>The player who shot this bullet</dd>
+								<dd>The canvas element</dd>
 						
 						</dl>
 					
@@ -394,33 +348,6 @@ ul.inheritsList
 
 <!-- ============================== field details ========================== -->		
 			
-				<div class="sectionTitle">
-					Field Detail
-				</div>
-				
-					<a name=".colors"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">Bullet.</span><b>colors</b>
-					
-					</div>
-					<div class="description">
-						Static bullet colors
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					
-				
-			
 
 <!-- ============================== method details ========================= -->		
 			
@@ -428,111 +355,21 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name="isCollidingWith"> </a>
+					<a name="resize"> </a>
 					<div class="fixedFont">
 					
 					
-					<b>isCollidingWith</b>(ball)
+					<b>resize</b>()
 					
 					</div>
 					<div class="description">
-						This method tests if the bullet is colliding with the ball
+						This method refresh the canvas on resize
 						
 						
 					</div>
 					
 					
 					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>ball</b>
-									
-								</dt>
-								<dd>The ball to test the collision with</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="move"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>move</b>(dt)
-					
-					</div>
-					<div class="description">
-						This method moves the bullet
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>dt</b>
-									
-								</dt>
-								<dd>Time delta to compute move</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd>true If the bullet must be destroyed</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="render"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>render</b>(c)
-					
-					</div>
-					<div class="description">
-						This method renders the bullet
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>c</b>
-									
-								</dt>
-								<dd>The canvas context</dd>
-							
-							</dl>
 						
 						
 						
@@ -580,7 +417,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Dec 01 2010 16:30:56 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Dec 01 2010 16:30:57 GMT+0100 (CET)
 		</div>
 	</body>
 </html>
