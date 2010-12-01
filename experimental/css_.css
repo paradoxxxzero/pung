@@ -29,14 +29,26 @@ body {
    color: rgb(30, 30, 30);
 }
 
-.bullet {
+.bullet-1 {
    color: #333333;
 }
 
-.grapnel {
-   color: #444444;
+.bullet-2 {
+   color: #262626;
 }
 
-.player {
-   color: #222222;
+.grapnel-1 {
+   color: #333333;
+}
+
+.grapnel-2 {
+   color: #262626;
+}
+
+.player-1 {
+   color: #181818;
+}
+
+.player-2 {
+   color: #101010;
 }

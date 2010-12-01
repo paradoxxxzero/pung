@@ -54,8 +54,8 @@ $(document).ready(
 			       down: false
 			   }};
 
-	pungGame.addPlayer(pungGame.makePlayer(50, leftPlayerSet));
-	pungGame.addPlayer(pungGame.makePlayer(250, rightPlayerSet));
+	pungGame.addPlayer(pungGame.makePlayer(50, leftPlayerSet, 1));
+	pungGame.addPlayer(pungGame.makePlayer(250, rightPlayerSet, 2));
 
 	var _frames = 0;
 	var displayFps = function() {

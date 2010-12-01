@@ -39,16 +39,17 @@ var Pung = function (context) {
 	balls: new Array(),
 	bullets: new Array(),
 	grapnels: new Array(),
-	players: new Array(),
+	players: new Array()
     };
-    for (var p = 0 ; p <= this.maxBallLife ; p++) {
-	this.colors.balls[p] = $("div.ball-" + p).css("color");
-    }
     for (var p = 1 ; p <= this.maxPlayer ; p++) {
 	this.colors.bullets[p] = $("div.bullet-" + p).css("color");
 	this.colors.grapnels[p] = $("div.grapnel-" + p).css("color");
 	this.colors.players[p] = $("div.player-" + p).css("color");
     }
+    for (var l = 0 ; l <= this.maxBallLife ; l++) {
+    	this.colors.balls[l] = $("div.ball-" + l).css("color");
+    }
+
 };
 
 /**
