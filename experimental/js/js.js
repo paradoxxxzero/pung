@@ -65,7 +65,7 @@ var JSPung = function () {
 	    down: false
 	}
     };
-    $(window).resize(function (event) {JSPung._.screen.resize(event);});
+    //$(window).resize(function (event) {JSPung._.screen.resize(event);});
     $(window).keydown(function (event) {JSPung._.keyboard.down(event);});
     $(window).keyup(function (event) {JSPung._.keyboard.up(event);});
 };
@@ -109,7 +109,7 @@ JSPung.prototype.animate = function () {
 	    this.makeLevel();
 	}
     }
-    setTimeout(function () { JSPung._.animate(); }, 5);
+    setTimeout(function () { JSPung._.animate(); }, 1000/120); //60HZ
 };
 
 /**
@@ -133,18 +133,18 @@ JSPung.ballsByLevel = [
     [ // Level 1
 	{
 	    x: 50,
-	    xspeed: 200,
+	    xspeed: 50,
 	    life: 4
 	}
     ], [ // Level 2
 	{
 	    x: 150,
-	    xspeed: 300,
+	    xspeed: 100,
 	    life: 4
 	},
 	{
 	    x: 400,
-	    xspeed: -100,
+	    xspeed: -50,
 	    life: 3
 	},
 	{
@@ -155,12 +155,12 @@ JSPung.ballsByLevel = [
     ], [ // Level 3
 	{
 	    x: 50,
-	    xspeed: 400,
+	    xspeed: 200,
 	    life: 4
 	},
 	{
 	    x: 400,
-	    xspeed: -300,
+	    xspeed: -150,
 	    life: 4
 	}
     ]

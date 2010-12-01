@@ -5,6 +5,17 @@ body {
    background-color: #1b1d1e;
 }
 
+#canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height: 600px;
+    margin-top: -300px;
+    margin-left: -400px;
+    border: #000 2px solid;
+}
+
 .lost {
   background-color: #700 !important;
 }
@@ -34,7 +45,7 @@ body {
 }
 
 .bullet-2 {
-   color: #ff59ff;
+   color: #95ff59;
 }
 
 .grapnel-1 {
@@ -42,7 +53,7 @@ body {
 }
 
 .grapnel-2 {
-   color: #ff59ff;
+   color: #95ff59;
 }
 
 .player-1 {
@@ -50,6 +61,6 @@ body {
 }
 
 .player-2 {
-   color: #5e3fff;
+   color: #be5e3f;
 }
   

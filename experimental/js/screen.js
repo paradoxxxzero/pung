@@ -27,18 +27,20 @@
  */
 var Screen = function (canvas) {
     this.canvas = canvas;
-    this.w = canvas.width = window.innerWidth;
-    this.h = canvas.height = window.innerHeight;
+    this.w = canvas.width = 800;//window.innerWidth;
+    this.h = canvas.height = 600; //window.innerHeight;
 };
 
 /**
  * This method refresh the canvas on resize
+ * Unused since we use fixed size now
  */
 Screen.prototype.resize = function() {
     this.w = this.canvas.width = window.innerWidth;
     this.h = this.canvas.height = window.innerHeight;
     // Background initialisation
     var context = this.canvas.getContext('2d');
+    //TODO clip
     context.save();
     context.fillStyle = "rgba(34, 34, 34, 1)";
     context.fillRect(0, 0, this.w, this.h);

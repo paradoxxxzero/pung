@@ -35,7 +35,7 @@ var Ball = function (x, xspeed, life) {
 	x, JSPung._.screen.h * Ball.heights[this.life],
 	new Speed(
 	    xspeed, 0,
-	    new Acceleration(0, 980)
+	    new Acceleration(0, 400)
 	));
     this.radius = Ball.sizes[life];
     this.color = Ball.colors[life];
