@@ -70,15 +70,26 @@ var JSPung = function () {
     $(window).keyup(function (event) {JSPung._.keyboard.up(event);});
 };
 
+/**
+ * This method starts the fps counter
+ */
 JSPung.prototype.startFps = function () {
-    setInterval(JSPung._.fps, 1000);
+    setInterval(function () {JSPung._.fps();}, 1000);
 };
+
+/**
+ * This method is periodically called to display the fps rate
+ */
 
 JSPung.prototype.fps = function () {
     document.title = this.frames + " fps";
     this.frames = 0;
 };
 
+/**
+ * This method is periodically called to call the animate function of the game
+ * and to check the state of the game
+ */
 JSPung.prototype.animate = function () {
     this.frames++;
 
@@ -101,6 +112,9 @@ JSPung.prototype.animate = function () {
     setTimeout(function () { JSPung._.animate(); }, 5);
 };
 
+/**
+ * This function create a new level according to the value of level
+ */
 JSPung.prototype.makeLevel = function () {
     this.pung = new Pung(this.c);
     var levelBalls = JSPung.ballsByLevel[this.level - 1];
@@ -112,7 +126,9 @@ JSPung.prototype.makeLevel = function () {
     this.pung.addPlayer(new Player(this.screen.w * 2 / 3, 2, this.rightPlayerSet));
 };
 
-
+/**
+ * Static array describing the different levels
+ */
 JSPung.ballsByLevel = [
     [ // Level 1
 	{
@@ -149,10 +165,15 @@ JSPung.ballsByLevel = [
 	}
     ]
 ];
+
+/**
+ * Init
+ */
 $(document).ready(
     function () {
 	JSPung._ = new JSPung();
 	JSPung._.makeLevel();
+	JSPung._.startFps();
 	JSPung._.animate();
     }
 );
