@@ -22,18 +22,16 @@
  *
  * @author Mounier Florian
  * @constructor
- * @param pung The pung game controlled by the keyboard
  *
  */
-var Keyboard = function (pung) {
-    this.pung = pung;
+var Keyboard = function () {
 };
 
 /**
  * This method handle a key down
  */
 Keyboard.prototype.down = function(event) {
-    $.each(this.pung.players, function (i, player) {
+    $.each(JSPung._.pung.players, function (i, player) {
 	       $.each(player.controls, function (k, o) {
 			  if(event.keyCode == o.keyCode) {
 			      o.down = true;
@@ -46,7 +44,7 @@ Keyboard.prototype.down = function(event) {
  * This method handle a key up
  */
 Keyboard.prototype.up = function(event) {
-    $.each(this.pung.players, function (i, player) {
+    $.each(JSPung._.pung.players, function (i, player) {
 	       $.each(player.controls, function (k, o) {
 			  if(event.keyCode == o.keyCode) {
 			      o.down = false;

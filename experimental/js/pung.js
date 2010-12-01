@@ -84,16 +84,6 @@ Pung.prototype.rmGrapnel = function(grapnel) {
 };
 
 /**
- * This utility method creates a new ball with default values
- * @param x The initial ball abscissa
- * @param xspeed The initial ball horizontal speed
- * @param life The initial ball life
- */
-Pung.prototype.makeBall = function(x, xspeed, life) {
-    return new Ball(x, xspeed, life);
-};
-
-/**
  * This method adds a player to the game
  * @param player The Player to add
  */
@@ -110,16 +100,12 @@ Pung.prototype.rmPlayer = function(player) {
 };
 
 /**
- * This utility method creates a new player with default values
- * @param x The initial player abscissa
- */
-Pung.prototype.makePlayer = function(x, controls, index) {
-    return new Player(x, index, controls);
-};
-
-/**
  * This method makes the game
+ *
  * @param ball The Ball to add
+ * @return True if the game goes on
+ *         False if the players won this level
+ *         Null if the level is lost
  */
 Pung.prototype.animate = function() {
     var _this = this;
@@ -195,7 +181,15 @@ Pung.prototype.animate = function() {
 	       c.restore();
 	   });
 
+    // Test end of level
+    if(this.balls.length == 0) {
+	return false;
+    }
+    if(this.players.length == 0) {
+	return null;
+    }
     this.time = new Date().getTime();
+    return true;
 };
 
 

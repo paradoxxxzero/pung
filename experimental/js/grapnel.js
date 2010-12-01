@@ -28,7 +28,7 @@
 
 var Grapnel = function (player) {
     this.location = new Location(
-	player.location.x, _screen.h - player.shape.h,
+	player.location.x, JSPung._.screen.h - player.shape.h,
 	new Speed(
 	    0, -1000,
 	    new Acceleration(0, 0)
@@ -65,7 +65,7 @@ Grapnel.prototype.render = function(c) {
     c.shadowBlur = 5;
     c.shadowColor = this.color;
     c.fillStyle = this.color;
-    c.fillRect(this.location.x - this.shape.w / 2, this.location.y, this.shape.w, _screen.h - this.location.y);
+    c.fillRect(this.location.x - this.shape.w / 2, this.location.y, this.shape.w, JSPung._.screen.h - this.location.y);
 };
 
 /**

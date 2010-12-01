@@ -32,7 +32,7 @@
 var Ball = function (x, xspeed, life) {
     this.life = life;
     this.location = new Location(
-	x, _screen.h * Ball.heights[this.life],
+	x, JSPung._.screen.h * Ball.heights[this.life],
 	new Speed(
 	    xspeed, 0,
 	    new Acceleration(0, 980)
@@ -72,15 +72,15 @@ $(document).ready(function () {
  */
 Ball.prototype.move = function(dt) {
     this.location.move(dt);
-    if(this.location.x + this.radius > _screen.w) {
-	this.location.x = _screen.w - this.radius;
+    if(this.location.x + this.radius > JSPung._.screen.w) {
+	this.location.x = JSPung._.screen.w - this.radius;
 	this.location.speed.x *= -1;
     } else if(this.location.x - this.radius < 0) {
 	this.location.x = this.radius;
 	this.location.speed.x *= -1;
     }
-    if(this.location.y + this.radius > _screen.h) {
-	this.location.y = _screen.h - this.radius;
+    if(this.location.y + this.radius > JSPung._.screen.h) {
+	this.location.y = JSPung._.screen.h - this.radius;
 	this.location.speed.y *= -1;
     }
     return false;

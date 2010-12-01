@@ -17,81 +17,142 @@
  along with this program.  If not, see http://www.gnu.org/licenses/.
  */
 
-var _screen, _keyboard;
+/**
+ * Main singleton class contructed when the document is ready
+ * @author Mounier Florian
+ */
+var JSPung = function () {
+    this.canvas = $('#canvas')[0];
+    this.c = this.canvas.getContext('2d');
+    this.screen = new Screen(this.canvas);
+    this.keyboard = new Keyboard();
+    this.frames = 0;
+    this.level = 1;
+    this.leftPlayerSet = {
+	left: {
+	    keyCode: 37,
+	    down: false
+	},
+	right: {
+	    keyCode: 39,
+	    down: false
+	},
+	bullet: {
+	    keyCode: 17,
+	    down: false
+	},
+	grapnel: {
+	    keyCode: 16,
+	    down: false
+	}
+    };
 
+    this.rightPlayerSet = {
+	left: {
+	    keyCode: 68,
+	    down: false
+	},
+	right: {
+	    keyCode: 71,
+	    down: false
+	},
+	bullet: {
+	    keyCode: 65,
+	    down: false
+	},
+	grapnel: {
+	    keyCode: 81,
+	    down: false
+	}
+    };
+    $(window).resize(function (event) {JSPung._.screen.resize(event);});
+    $(window).keydown(function (event) {JSPung._.keyboard.down(event);});
+    $(window).keyup(function (event) {JSPung._.keyboard.up(event);});
+};
+
+JSPung.prototype.startFps = function () {
+    setInterval(JSPung._.fps, 1000);
+};
+
+JSPung.prototype.fps = function () {
+    document.title = this.frames + " fps";
+    this.frames = 0;
+};
+
+JSPung.prototype.animate = function () {
+    this.frames++;
+
+    // TODO: Clip only drawn region
+    this.c.save();
+    this.c.fillStyle = "rgb(34, 34, 34)";
+    this.c.fillRect(0, 0, this.screen.w, this.screen.h);
+    this.c.restore();
+
+    var gameState = this.pung.animate();
+    if(!gameState) {
+	// The players are all dead
+	if(gameState == null) {
+	    this.makeLevel();
+	} else {
+	    this.level++;
+	    this.makeLevel();
+	}
+    }
+    setTimeout(function () { JSPung._.animate(); }, 5);
+};
+
+JSPung.prototype.makeLevel = function () {
+    this.pung = new Pung(this.c);
+    var levelBalls = JSPung.ballsByLevel[this.level - 1];
+    var _this = this;
+    $.each(levelBalls, function (i, ball) {
+	       _this.pung.addBall(new Ball(ball.x, ball.xspeed, ball.life));
+	   });
+    this.pung.addPlayer(new Player(this.screen.w / 3, 1, this.leftPlayerSet));
+    this.pung.addPlayer(new Player(this.screen.w * 2 / 3, 2, this.rightPlayerSet));
+};
+
+
+JSPung.ballsByLevel = [
+    [ // Level 1
+	{
+	    x: 50,
+	    xspeed: 200,
+	    life: 4
+	}
+    ], [ // Level 2
+	{
+	    x: 150,
+	    xspeed: 300,
+	    life: 4
+	},
+	{
+	    x: 400,
+	    xspeed: -100,
+	    life: 3
+	},
+	{
+	    x: 0,
+	    xspeed: 30,
+	    life: 0
+	}
+    ], [ // Level 3
+	{
+	    x: 50,
+	    xspeed: 400,
+	    life: 4
+	},
+	{
+	    x: 400,
+	    xspeed: -300,
+	    life: 4
+	}
+    ]
+];
 $(document).ready(
-    /**
-     * Main function called when the document is ready
-     * @author Mounier Florian
-     */
     function () {
-	var _canvas = $('#canvas')[0];
-	var _c = _canvas.getContext('2d');
-	var pungGame = new Pung(_c);
-	_screen = new Screen(_canvas);
-	_keyboard = new Keyboard(pungGame);
-
-	$(window).resize(function (event) {_screen.resize(event);});
-	$(window).keydown(function (event) {_keyboard.down(event);});
-	$(window).keyup(function (event) {_keyboard.up(event);});
-
-	pungGame.addBall(pungGame.makeBall(50, 200, Ball.maxLife));
-	pungGame.addBall(pungGame.makeBall(400, -100, Ball.maxLife - 1));
-
-	var leftPlayerSet = {
-			   left: {
-			       keyCode: 37,
-			       down: false
-			   },
-			   right: {
-			       keyCode: 39,
-			       down: false
-			   },
-			   bullet: {
-			       keyCode: 17,
-			       down: false
-			   },
-			   grapnel: {
-			       keyCode: 16,
-			       down: false
-			   }};
-	var rightPlayerSet = {
-			   left: {
-			       keyCode: 68,
-			       down: false
-			   },
-			   right: {
-			       keyCode: 71,
-			       down: false
-			   },
-			   bullet: {
-			       keyCode: 65,
-			       down: false
-			   },
-			   grapnel: {
-			       keyCode: 81,
-			       down: false
-			   }};
-
-	pungGame.addPlayer(pungGame.makePlayer(50, leftPlayerSet, 1));
-	pungGame.addPlayer(pungGame.makePlayer(250, rightPlayerSet, 2));
-
-	var _frames = 0;
-	var displayFps = function() {
-	    document.title = _frames + " fps";
-	    _frames = 0;
-	};
-	setInterval(displayFps, 1000);
-
-	var animate = function () {
-	    _frames++;
-	    _c.save();
-	    _c.fillStyle = "rgb(34, 34, 34)";
-	    _c.fillRect(0, 0, _screen.w, _screen.h);
-	    _c.restore();
-	    pungGame.animate();
-	    setTimeout(animate, 5);
-	};
-	animate();
+	JSPung._ = new JSPung();
+	JSPung._.makeLevel();
+	JSPung._.animate();
     }
 );
