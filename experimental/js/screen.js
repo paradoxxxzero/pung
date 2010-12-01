@@ -2,7 +2,6 @@
  Pung - A HTML5 pang rewrite http://pung.tk/
 
  Copyright (C) 2010 Mounier Florian aka paradoxxxzero
- Copyright (C) 2010 Dunklau Ronan
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as
@@ -44,4 +43,8 @@ Screen.prototype.resize = function() {
     context.fillStyle = "rgba(34, 34, 34, 1)";
     context.fillRect(0, 0, this.w, this.h);
     context.restore();
+};
+
+Screen.prototype.toString = function ()  {
+    return "Scr{w: " + this.w + ", h:" + this.h + "} ";
 };

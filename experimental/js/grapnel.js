@@ -2,7 +2,6 @@
  Pung - A HTML5 pang rewrite http://pung.tk/
 
  Copyright (C) 2010 Mounier Florian aka paradoxxxzero
- Copyright (C) 2010 Dunklau Ronan
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as
@@ -23,24 +22,31 @@
  *
  * @author Mounier Florian
  * @constructor
- * @param x Initial abscissa
- * @param y Initial ordinate
- * @param color The grapnel color
+ * @param player The player who shot this grapnel
  *
  */
 
-var Grapnel = function (x, y, color) {
+var Grapnel = function (player) {
     this.location = new Location(
-	x, y,
+	player.location.x, _screen.h - player.shape.h,
 	new Speed(
 	    0, -1000,
 	    new Acceleration(0, 0)
 	));
     this.shape = new Shape(4, 0);
-    this.color = color;
+    this.color = Grapnel.colors[player.index];
 
 };
 
+/**
+ * Static grapnels colors
+ */
+Grapnel.colors = new Array();
+$(document).ready(function () {
+		      for (var p = 0 ; p <= Player.maxPlayers ; p++) {
+			  Grapnel.colors[p] = $("div.grapnel-" + p).css("color");
+		      }
+		  });
 /**
  * This method moves the grapnel
  * @param dt Time delta to compute move
@@ -67,10 +73,10 @@ Grapnel.prototype.render = function(c) {
  * @param ball The ball to test the collision with
  */
 Grapnel.prototype.isCollidingWith = function(ball) {
-    return this.location.distanceTo(ball.location) < ball.radius()
+    return this.location.distanceTo(ball.location) < ball.radius
 	|| (
-	    ball.location.x - ball.radius() < this.location.x
-		&& ball.location.x + ball.radius() > this.location.x && ball.location.y > this.location.y
+	    ball.location.x - ball.radius < this.location.x
+		&& ball.location.x + ball.radius > this.location.x && ball.location.y > this.location.y
 	);
 };
 

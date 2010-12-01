@@ -2,7 +2,6 @@
  Pung - A HTML5 pang rewrite http://pung.tk/
 
  Copyright (C) 2010 Mounier Florian aka paradoxxxzero
- Copyright (C) 2010 Dunklau Ronan
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as
@@ -26,10 +25,9 @@
  * @param x The initial player abscissa
  * @param index The player index (1 for p1, 2 for p2, ...)
  * @param controls The keyboard keyCodes to control this player
- * @param color The player color
  *
  */
-var Player = function (x, index, controls, color) {
+var Player = function (x, index, controls) {
     this.location = new Location(
 	x, _screen.h,
 	new Speed(
@@ -40,8 +38,23 @@ var Player = function (x, index, controls, color) {
     this.index = index;
     this.shape = new Shape(20,40);
     this.controls = controls;
-    this.color = color;
+    this.color = Player.colors[index];
 };
+
+/**
+ * Static max player number (for colors)
+ */
+Player.maxPlayers = 2;
+
+/**
+ * Static player colors
+ */
+Player.colors = new Array();
+$(document).ready(function () {
+		      for (var p = 0 ; p <= Player.maxPlayers ; p++) {
+			  Player.colors[p] = $("div.player-" + p).css("color");
+		      }
+});
 
 /**
  * This method moves the player
@@ -68,3 +81,6 @@ Player.prototype.render = function(c) {
     c.fillRect(this.location.x - this.shape.w / 2, _screen.h - this.shape.h, this.shape.w, this.shape.h);
 };
 
+Player.prototype.toString = function ()  {
+    return "Player " + this.index + " " + this.location;
+};

@@ -2,7 +2,6 @@
  Pung - A HTML5 pang rewrite http://pung.tk/
 
  Copyright (C) 2010 Mounier Florian aka paradoxxxzero
- Copyright (C) 2010 Dunklau Ronan
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as
@@ -23,6 +22,7 @@
  *
  * @author Mounier Florian
  * @constructor
+ * @param context The 2d canvas context
  *
  */
 var Pung = function (context) {
@@ -33,23 +33,6 @@ var Pung = function (context) {
     this.objects = [this.balls, this.players, this.bullets, this.grapnels];
     this.context = context;
     this.time = new Date().getTime();
-    this.maxBallLife = 4;
-    this.maxPlayer = 2;
-    this.colors = {
-	balls: new Array(),
-	bullets: new Array(),
-	grapnels: new Array(),
-	players: new Array()
-    };
-    for (var p = 1 ; p <= this.maxPlayer ; p++) {
-	this.colors.bullets[p] = $("div.bullet-" + p).css("color");
-	this.colors.grapnels[p] = $("div.grapnel-" + p).css("color");
-	this.colors.players[p] = $("div.player-" + p).css("color");
-    }
-    for (var l = 0 ; l <= this.maxBallLife ; l++) {
-    	this.colors.balls[l] = $("div.ball-" + l).css("color");
-    }
-
 };
 
 /**
@@ -107,7 +90,7 @@ Pung.prototype.rmGrapnel = function(grapnel) {
  * @param life The initial ball life
  */
 Pung.prototype.makeBall = function(x, xspeed, life) {
-    return new Ball(x, xspeed, life, this.colors.balls[life]);
+    return new Ball(x, xspeed, life);
 };
 
 /**
@@ -131,7 +114,7 @@ Pung.prototype.rmPlayer = function(player) {
  * @param x The initial player abscissa
  */
 Pung.prototype.makePlayer = function(x, controls, index) {
-    return new Player(x, index, controls, this.colors.players[index]);
+    return new Player(x, index, controls);
 };
 
 /**
@@ -145,55 +128,72 @@ Pung.prototype.animate = function() {
     // Handle player action (bullets, grapnels...)
     $.each(this.players, function(i, player) {
 	       if(player.controls.bullet.down) {
-		   _this.addBullet(new Bullet(player.location.x, _screen.h - player.shape.h, _this.colors.bullets[player.index]));
+		   _this.addBullet(new Bullet(player));
 		   player.controls.bullet.down = false;
 	       }
 	       if(player.controls.grapnel.down) {
-		   _this.addGrapnel(new Grapnel(player.location.x, _screen.h - player.shape.h, _this.colors.grapnels[player.index]));
+		   _this.addGrapnel(new Grapnel(player));
 		   player.controls.grapnel.down = false;
 	       }
 	   });
 
     // Move all objects
-    var toBeDestroyed = {};
+
+    // This array stores an object containing the object to destroy and his array
+    var toBeDestroyed = [];
     var dt = Math.min(new Date().getTime() - this.time, 50);
     $.each(this.objects, function(i, os) {
-	       $.each(os, function(i, o) {
+	       $.each(os, function(j, o) {
 			  if(o.move(dt)) {
-			      toBeDestroyed[o] =  os;
+			      toBeDestroyed.push({os: os, o: o});
 			  }
 		      });
 	   });
 
     // Handling ball collision with bullets or grapnels
     $.each(this.balls, function(i, ball) {
-	       $.each(_this.bullets, function(i, bullet) {
+	       $.each(_this.bullets, function(j, bullet) {
 			  if(bullet.isCollidingWith(ball)) {
-			      toBeDestroyed[ball] = _this.balls;
-			      toBeDestroyed[bullet] = _this.bullets;
+			      toBeDestroyed.push({os: _this.balls, o: ball});
+			      toBeDestroyed.push({os: _this.bullets, o: bullet});
+			      var forks = ball.fork();
+			      if(forks != null) {
+				  _this.balls.push(forks.left);
+				  _this.balls.push(forks.right);
+			      }
 			  }
 		      });
-	       $.each(_this.grapnels, function(i, grapnel) {
+	       $.each(_this.grapnels, function(j, grapnel) {
 			  if(grapnel.isCollidingWith(ball)) {
-			      toBeDestroyed[ball] = _this.balls;
-			      toBeDestroyed[grapnel] = _this.grapnels;
+			      toBeDestroyed.push({os: _this.balls, o: ball});
+			      toBeDestroyed.push({os: _this.grapnels, o: grapnel});
+			      var forks = ball.fork();
+			      if(forks != null) {
+				  _this.balls.push(forks.left);
+				  _this.balls.push(forks.right);
+			      }
 			  }
 		      });
 	   });
 
     // Remove destroyed objects
-    $.each(toBeDestroyed, function(o, os) {
-	       os.splice(os.indexOf(o), 1);
+    $.each(toBeDestroyed, function(i, oz) {
+	       oz.os.splice(oz.os.indexOf(oz.o), 1);
 	   });
 
     // Render all objects
     $.each(this.objects, function(i, os) {
 	       c.save();
-	       $.each(os, function(i, o) {
+	       $.each(os, function(j, o) {
 			  o.render(c);
 		      });
 	       c.restore();
 	   });
 
     this.time = new Date().getTime();
+};
+
+
+Pung.prototype.toString = function ()  {
+    return "Pung game";
 };

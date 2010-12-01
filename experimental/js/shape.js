@@ -2,7 +2,6 @@
  Pung - A HTML5 pang rewrite http://pung.tk/
 
  Copyright (C) 2010 Mounier Florian aka paradoxxxzero
- Copyright (C) 2010 Dunklau Ronan
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as
@@ -21,7 +20,7 @@
 /**
  * This class represents a geometric shape (for now, a simple rectangle)
  *
- * @author Mounier Florian 
+ * @author Mounier Florian
  * @constructor
  * @param w Initial width
  * @param h Initial heigth
@@ -30,4 +29,8 @@
 var Shape = function (w, h) {
     this.w = w;
     this.h = h;
+};
+
+Shape.prototype.toString = function ()  {
+    return "H{w: " + this.w + ", h:" + this.h + "} ";
 };
