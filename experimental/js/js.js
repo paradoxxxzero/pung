@@ -109,7 +109,7 @@ JSPung.prototype.animate = function () {
 	    this.makeLevel();
 	}
     }
-    setTimeout(function () { JSPung._.animate(); }, 1000/120); //60HZ
+    setTimeout(function () { JSPung._.animate(); }, 8); // ~120Hz
 };
 
 /**
@@ -132,7 +132,7 @@ JSPung.prototype.makeLevel = function () {
 JSPung.ballsByLevel = [
     [ // Level 1
 	{
-	    x: 50,
+	    x: 500,
 	    xspeed: 50,
 	    life: 4
 	}

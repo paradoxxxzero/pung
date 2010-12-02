@@ -35,7 +35,7 @@ var Grapnel = function (player) {
 	));
     this.shape = new Shape(4, 0);
     this.color = Grapnel.colors[player.index];
-
+    this.player = player;
 };
 
 /**

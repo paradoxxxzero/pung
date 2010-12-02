@@ -35,6 +35,7 @@ var Bullet = function (player) {
 	));
     this.shape = new Shape(2, 10);
     this.color = Bullet.colors[player.index];
+    this.player = player;
 };
 
 /**

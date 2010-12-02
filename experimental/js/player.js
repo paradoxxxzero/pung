@@ -39,6 +39,10 @@ var Player = function (x, index, controls) {
     this.index = index;
     this.controls = controls;
     this.color = Player.colors[index];
+    this.score = 0;
+    this.displayedScore = 0;
+    this.$score = $(".score-" + this.index);
+    this.$score.text("P" + this.index + ": " + this.score);
 };
 
 /**
@@ -94,6 +98,33 @@ Player.prototype.isCollidingWith = function(ball) {
     colliding = colliding || this.location.distanceTo(ball.location) < ball.radius;
     this.location.x = originalX;
     return colliding;
+};
+
+/**
+ * This method updates the player score
+ */
+Player.prototype.increaseScore = function (deltaScore)  {
+    if(this.displayedScore == this.score) {
+	this.score += deltaScore;
+	this.updateScore();
+    } else {
+	this.score += deltaScore;
+    }
+};
+
+/**
+ * This method updates the displayed score
+ */
+Player.prototype.updateScore = function ()  {
+    this.displayedScore += 5;
+    if(this.displayedScore > this.score) {
+	this.displayedScore = this.score;
+	this.$score.text("P" + this.index + ": " + this.score);
+    } else {
+	this.$score.text("P" + this.index + ": " + this.displayedScore);
+	var _this = this;
+	setTimeout(function () { _this.updateScore(); }, 20);
+    }
 };
 
 Player.prototype.toString = function ()  {

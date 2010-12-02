@@ -140,6 +140,7 @@ Pung.prototype.animate = function() {
     $.each(this.balls, function(i, ball) {
 	       $.each(_this.bullets, function(j, bullet) {
 			  if(bullet.isCollidingWith(ball)) {
+			      bullet.player.increaseScore(50);
 			      toBeDestroyed.push({os: _this.balls, o: ball});
 			      toBeDestroyed.push({os: _this.bullets, o: bullet});
 			      var forks = ball.fork();
@@ -151,6 +152,7 @@ Pung.prototype.animate = function() {
 		      });
 	       $.each(_this.grapnels, function(j, grapnel) {
 			  if(grapnel.isCollidingWith(ball)) {
+			      grapnel.player.increaseScore(100);
 			      toBeDestroyed.push({os: _this.balls, o: ball});
 			      toBeDestroyed.push({os: _this.grapnels, o: grapnel});
 			      var forks = ball.fork();

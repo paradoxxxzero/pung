@@ -68,4 +68,19 @@ body {
 .player-2 {
    color: #be5e3f;
 }
-  
+
+.score {
+   text-shadow: 0 0 5px #000000;
+}
+
+.score-1 {
+   position: absolute;
+   top: 0;
+   left: 0;
+}
+
+.score-2 {
+   position: absolute;
+   top: 0;
+   right: 0;
+}

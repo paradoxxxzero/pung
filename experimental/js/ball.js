@@ -44,7 +44,7 @@ var Ball = function (x, xspeed, life) {
 /**
  * Static sizes for balls life
  */
-Ball.sizes = [6.25, 12.5, 25, 50, 100];
+Ball.sizes = [5, 10, 25, 50, 75];
 
 /**
  * Static max heights for balls
@@ -81,7 +81,7 @@ Ball.prototype.move = function(dt) {
     }
     if(this.location.y + this.radius > JSPung._.screen.h) {
 	this.location.y = JSPung._.screen.h - this.radius;
-	this.location.speed.y *= -1;
+	this.location.speed.y *= -1.01242;
     }
     return false;
 };
