@@ -41,6 +41,7 @@ var Player = function (x, index, controls) {
     this.color = Player.colors[index];
     this.score = 0;
     this.displayedScore = 0;
+    this.shotsLeft = 2;
     this.$score = $(".score-" + this.index);
     this.$score.text("P" + this.index + ": " + this.score);
 };

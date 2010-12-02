@@ -117,7 +117,8 @@ Pung.prototype.animate = function() {
 		   _this.addBullet(new Bullet(player));
 		   player.controls.bullet.down = false;
 	       }
-	       if(player.controls.grapnel.down) {
+	       if(player.controls.grapnel.down && player.shotsLeft > 0) {
+		   player.shotsLeft--;
 		   _this.addGrapnel(new Grapnel(player));
 		   player.controls.grapnel.down = false;
 	       }
@@ -162,8 +163,10 @@ Pung.prototype.animate = function() {
 	       $.each(_this.grapnels, function(j, grapnel) {
 			  if(grapnel.isCollidingWith(ball)) {
 			      grapnel.player.increaseScore(100);
+			      grapnel.player.shotsLeft++;
 			      toBeDestroyed.push({os: _this.balls, o: ball});
 			      toBeDestroyed.push({os: _this.grapnels, o: grapnel});
+
 			      var forks = ball.fork();
 			      if(forks != null) {
 				  _this.balls.push(forks.left);

@@ -54,7 +54,11 @@ $(document).ready(function () {
  */
 Grapnel.prototype.move = function(dt) {
     this.location.move(dt);
-    return this.location.y < 0;
+    if(this.location.y < 0) {
+	this.player.shotsLeft++;
+	return true;
+    }
+    return false;
 };
 
 /**
