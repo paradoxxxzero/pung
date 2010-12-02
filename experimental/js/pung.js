@@ -123,8 +123,17 @@ Pung.prototype.animate = function() {
 	       }
 	   });
 
-    // Move all objects
+   // Clip all objects
+    c.save();
+    c.fillStyle = "rgb(34, 34, 34)";
+    $.each(this.objects, function(i, os) {
+	       $.each(os, function(j, o) {
+			  o.clip(c);
+		      });
+	   });
+    c.restore();
 
+    // Move all objects
     // This array stores an object containing the object to destroy and his array
     var toBeDestroyed = [];
     var dt = Math.min(new Date().getTime() - this.time, 50);

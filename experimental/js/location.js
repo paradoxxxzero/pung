@@ -42,6 +42,7 @@ Location.prototype.move = function(dt) {
     this.x += (this.speed.x * dt) / 1000;
     this.y += (this.speed.y * dt) / 1000;
 };
+
 /**
  * This method is similar to move but move backwards
  * @param dt Time delta to compute move
@@ -51,7 +52,6 @@ Location.prototype.moveBackwards = function(dt) {
     this.x -= (this.speed.x * dt) / 1000;
     this.y -= (this.speed.y * dt) / 1000;
 };
-
 /**
  * This method computes the distance between this location and another
  * @param other The other location

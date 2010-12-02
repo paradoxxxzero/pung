@@ -92,13 +92,6 @@ JSPung.prototype.fps = function () {
  */
 JSPung.prototype.animate = function () {
     this.frames++;
-
-    // TODO: Clip only drawn region
-    this.c.save();
-    this.c.fillStyle = "rgb(34, 34, 34)";
-    this.c.fillRect(0, 0, this.screen.w, this.screen.h);
-    this.c.restore();
-
     var gameState = this.pung.animate();
     if(!gameState) {
 	// The players are all dead
@@ -124,6 +117,12 @@ JSPung.prototype.makeLevel = function () {
 	   });
     this.pung.addPlayer(new Player(this.screen.w / 3, 1, this.leftPlayerSet));
     this.pung.addPlayer(new Player(this.screen.w * 2 / 3, 2, this.rightPlayerSet));
+
+    // Init canvas
+    this.c.save();
+    this.c.fillStyle = "rgb(34, 34, 34)";
+    this.c.fillRect(0, 0, this.screen.w, this.screen.h);
+    this.c.restore();
 };
 
 /**

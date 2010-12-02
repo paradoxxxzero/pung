@@ -82,7 +82,22 @@ Player.prototype.render = function(c) {
     c.shadowBlur = 5;
     c.shadowColor = this.color;
     c.fillStyle = this.color;
-    c.fillRect(this.location.x - this.shape.w / 2, this.location.y, this.shape.w, this.shape.h);
+    c.fillRect(Math.round(this.location.x - this.shape.w / 2),
+	       Math.round(this.location.y),
+	       this.shape.w,
+	       this.shape.h);
+};
+
+/**
+ * This method clip what was previously rendered
+ * @param c The canvas context
+ */
+Player.prototype.clip = function(c) {
+    var margin = 5;
+    c.fillRect(Math.round(this.location.x - this.shape.w / 2 - margin),
+	       Math.round(this.location.y - margin),
+	       this.shape.w + 2 * margin,
+	       this.shape.h + margin); // only one margin needed we don't need to clip out of the canvas
 };
 
 /**

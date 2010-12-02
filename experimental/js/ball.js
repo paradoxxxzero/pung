@@ -95,8 +95,20 @@ Ball.prototype.render = function(c) {
     c.shadowBlur = 10;
     c.shadowColor = this.color;
     c.fillStyle = this.color;
-    c.arc(this.location.x, this.location.y, this.radius, 0, 2 * Math.PI, false);
+    c.arc(Math.round(this.location.x), Math.round(this.location.y), this.radius, 0, 2 * Math.PI, false);
     c.fill();
+};
+
+/**
+ * This method clip what was previously rendered
+ * @param c The canvas context
+ */
+Ball.prototype.clip = function(c) {
+    var margin = 8;
+    c.fillRect(Math.round(this.location.x - this.radius - margin),
+	       Math.round(this.location.y - this.radius - margin),
+	       2 * (margin + this.radius),
+	       2 * (margin + this.radius));
 };
 
 /**
