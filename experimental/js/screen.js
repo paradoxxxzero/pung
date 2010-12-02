@@ -27,8 +27,8 @@
  */
 var Screen = function (canvas) {
     this.canvas = canvas;
-    this.w = canvas.width = 800;//window.innerWidth;
-    this.h = canvas.height = 600; //window.innerHeight;
+    this.w = canvas.width = $("#canvas").width();  //window.innerWidth;
+    this.h = canvas.height = $("#canvas").height(); //window.innerHeight;
 };
 
 /**

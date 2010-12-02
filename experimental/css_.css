@@ -2,18 +2,21 @@ body {
    padding: 0;
    margin: 0;
    overflow: hidden;
-   background-color: #1b1d1e;
+   background-color: #444;
 }
 
 #canvas {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 800px;
-    height: 600px;
-    margin-top: -300px;
-    margin-left: -400px;
+    width: 1024px;
+    height: 768px;
+    margin-top: -384px;
+    margin-left: -512px;
     border: #000 2px solid;
+   -moz-box-shadow: 0 0 25px #000;
+   -webkit-box-shadow: 0 0 25px #000;
+   box-shadow: 0 0 25px #000;
 }
 
 .lost {
