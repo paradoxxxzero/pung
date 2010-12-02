@@ -13,10 +13,12 @@ body {
     height: 768px;
     margin-top: -384px;
     margin-left: -512px;
-    border: #000 2px solid;
    -moz-box-shadow: 0 0 25px #000;
    -webkit-box-shadow: 0 0 25px #000;
    box-shadow: 0 0 25px #000;
+   -moz-border-radius: 10px;
+   -webkit-border-radius: 10px;
+   border-radius: 10px;
 }
 
 .lost {
