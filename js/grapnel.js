@@ -28,7 +28,7 @@
 
 var Grapnel = function (player) {
     this.location = new Location(
-	player.location.x, JSPung._.screen.h,
+	player.location.x, Jspung._.screen.h,
 	new Speed(
 	    0, -1000,
 	    new Acceleration(0, 0)
@@ -72,7 +72,7 @@ Grapnel.prototype.render = function(c) {
     c.fillRect(Math.round(this.location.x - this.shape.w / 2),
 	       Math.round(this.location.y),
 	       this.shape.w,
-	       JSPung._.screen.h - this.location.y);
+	       Jspung._.screen.h - this.location.y);
 };
 
 /**
@@ -84,7 +84,7 @@ Grapnel.prototype.clip = function(c) {
     c.fillRect(Math.round(this.location.x - this.shape.w / 2 - margin),
 	       Math.round(this.location.y - margin),
 	       this.shape.w + 2 * margin,
-	       JSPung._.screen.h - this.location.y + margin); // only one margin needed we don't need to clip out of the canvas
+	       Jspung._.screen.h - this.location.y + margin); // only one margin needed we don't need to clip out of the canvas
 };
 
 /**

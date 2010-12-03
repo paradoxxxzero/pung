@@ -30,7 +30,7 @@
 var Player = function (x, index, controls) {
     this.shape = new Shape(20,40);
     this.location = new Location(
-	x, JSPung._.screen.h - this.shape.h,
+	x, Jspung._.screen.h - this.shape.h,
 	new Speed(
 	    500, 0,
 	    new Acceleration(0, 0)
@@ -67,7 +67,7 @@ $(document).ready(function () {
  * @return true If the player must be destroyed
  */
 Player.prototype.move = function(dt) {
-    if(this.controls.right.down && this.location.x + this.shape.w / 2 < JSPung._.screen.w) {
+    if(this.controls.right.down && this.location.x + this.shape.w / 2 < Jspung._.screen.w) {
 	this.location.move(dt);
     }
     if(this.controls.left.down && this.location.x - this.shape.w / 2 > 0) {

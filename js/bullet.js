@@ -28,7 +28,7 @@
 
 var Bullet = function (player) {
     this.location = new Location(
-	player.location.x, JSPung._.screen.h - player.shape.h,
+	player.location.x, Jspung._.screen.h - player.shape.h,
 	new Speed(
 	    0, -2000,
 	    new Acceleration(0, 0)

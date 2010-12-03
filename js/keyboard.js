@@ -31,7 +31,7 @@ var Keyboard = function () {
  * This method handle a key down
  */
 Keyboard.prototype.down = function(event) {
-    $.each(JSPung._.pung.players, function (i, player) {
+    $.each(Jspung._.pung.players, function (i, player) {
 	       $.each(player.controls, function (k, o) {
 			  if(event.keyCode == o.keyCode) {
 			      o.down = true;
@@ -44,7 +44,7 @@ Keyboard.prototype.down = function(event) {
  * This method handle a key up
  */
 Keyboard.prototype.up = function(event) {
-    $.each(JSPung._.pung.players, function (i, player) {
+    $.each(Jspung._.pung.players, function (i, player) {
 	       $.each(player.controls, function (k, o) {
 			  if(event.keyCode == o.keyCode) {
 			      o.down = false;

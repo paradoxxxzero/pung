@@ -19,9 +19,10 @@
 
 /**
  * Main singleton class contructed when the document is ready
+ * @constructor
  * @author Mounier Florian
  */
-var JSPung = function () {
+var Jspung = function () {
     this.canvas = $('#canvas')[0];
     this.c = this.canvas.getContext('2d');
     this.screen = new Screen(this.canvas);
@@ -65,23 +66,23 @@ var JSPung = function () {
 	    down: false
 	}
     };
-    //$(window).resize(function (event) {JSPung._.screen.resize(event);});
-    $(window).keydown(function (event) {JSPung._.keyboard.down(event);});
-    $(window).keyup(function (event) {JSPung._.keyboard.up(event);});
+    //$(window).resize(function (event) {Jspung._.screen.resize(event);});
+    $(window).keydown(function (event) {Jspung._.keyboard.down(event);});
+    $(window).keyup(function (event) {Jspung._.keyboard.up(event);});
 };
 
 /**
  * This method starts the fps counter
  */
-JSPung.prototype.startFps = function () {
-    setInterval(function () {JSPung._.fps();}, 1000);
+Jspung.prototype.startFps = function () {
+    setInterval(function () {Jspung._.fps();}, 1000);
 };
 
 /**
  * This method is periodically called to display the fps rate
  */
 
-JSPung.prototype.fps = function () {
+Jspung.prototype.fps = function () {
     document.title = this.frames + " fps";
     this.frames = 0;
 };
@@ -90,7 +91,7 @@ JSPung.prototype.fps = function () {
  * This method is periodically called to call the animate function of the game
  * and to check the state of the game
  */
-JSPung.prototype.animate = function () {
+Jspung.prototype.animate = function () {
     this.frames++;
     var gameState = this.pung.animate();
     if(!gameState) {
@@ -102,15 +103,15 @@ JSPung.prototype.animate = function () {
 	    this.makeLevel();
 	}
     }
-    setTimeout(function () { JSPung._.animate(); }, 8); // ~120Hz
+    setTimeout(function () { Jspung._.animate(); }, 8); // ~120Hz
 };
 
 /**
  * This function create a new level according to the value of level
  */
-JSPung.prototype.makeLevel = function () {
+Jspung.prototype.makeLevel = function () {
     this.pung = new Pung(this.c);
-    var levelBalls = JSPung.ballsByLevel[this.level - 1];
+    var levelBalls = Jspung.ballsByLevel[this.level - 1];
     var _this = this;
     $.each(levelBalls, function (i, ball) {
 	       _this.pung.addBall(new Ball(ball.x, ball.xspeed, ball.life));
@@ -128,7 +129,7 @@ JSPung.prototype.makeLevel = function () {
 /**
  * Static array describing the different levels
  */
-JSPung.ballsByLevel = [
+Jspung.ballsByLevel = [
     [ // Level 1
 	{
 	    x: 500,
@@ -170,9 +171,9 @@ JSPung.ballsByLevel = [
  */
 $(document).ready(
     function () {
-	JSPung._ = new JSPung();
-	JSPung._.makeLevel();
-	JSPung._.startFps();
-	JSPung._.animate();
+	Jspung._ = new JSPung();
+	Jspung._.makeLevel();
+	Jspung._.startFps();
+	Jspung._.animate();
     }
 );
