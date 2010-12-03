@@ -171,7 +171,7 @@ Jspung.ballsByLevel = [
  */
 $(document).ready(
     function () {
-	Jspung._ = new JSPung();
+	Jspung._ = new Jspung();
 	Jspung._.makeLevel();
 	Jspung._.startFps();
 	Jspung._.animate();
