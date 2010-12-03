@@ -104,7 +104,7 @@ Ball.prototype.render = function(c) {
  * @param c The canvas context
  */
 Ball.prototype.clip = function(c) {
-    var margin = 8;
+    var margin = 10;
     c.fillRect(Math.round(this.location.x - this.radius - margin),
 	       Math.round(this.location.y - this.radius - margin),
 	       2 * (margin + this.radius),

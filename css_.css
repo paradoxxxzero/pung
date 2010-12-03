@@ -3,6 +3,8 @@ body {
    margin: 0;
    overflow: hidden;
    background-color: #444;
+   width: 100%;
+   heigt: 100%;
 }
 
 #canvas {
@@ -82,5 +84,5 @@ body {
 .score-2 {
    position: absolute;
    top: 0;
-   right: 0;
+   right: 5px;
 }

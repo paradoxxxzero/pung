@@ -94,7 +94,7 @@ Player.prototype.render = function(c) {
  * @param c The canvas context
  */
 Player.prototype.clip = function(c) {
-    var margin = 5;
+    var margin = 7;
     c.fillRect(Math.round(this.location.x - this.shape.w / 2 - margin),
 	       Math.round(this.location.y - margin),
 	       this.shape.w + 2 * margin,
