@@ -1,0 +1,1 @@
+java -cp _jsdoctoolkit_mozillajsengine.jar:_jsdoctoolkit_jsrun.jar JsRun  _jsdoctoolkit_app/run.js -D="generatedBy:Mounier Florian" -D="copyright:2011, title:Pung reference" -D="noGlobal:true" -t=_jsdoctoolkit_templates/codeview -a -p -d=api js/*.js
